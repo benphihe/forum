@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bodyinscription">
+    <div class="container">
+        <div class="heading">Sign In</div>
+        <form class="form" method="POST" action="/connexion">
+            <input required="" class="input" type="email" name="email" id="emailInscription" placeholder="E-mail">
+            <input required="" class="input" type="password" name="password" id="passwordInscription" placeholder="Password">
+            <input class="login-button" type="submit" value="Sign In">
+            <div class="form-inscription">
+                <p>Don't have an account? <a href="#" id="openInscriptionPopup">Sign up</a> </p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Overlay pour le fond sombre -->
+    <div id="popupOverlay"></div>
+
+    <!-- Contenu du pop-up d'inscription -->
+    <div id="fenetreInscription">
+        <h2>Inscription</h2>
+        <form class="form" method="POST" action="/inscription">
+            <input type="text" class="input" id="fullName" name="fullname" placeholder="Full Name" required><br>
+            <input type="email" class="input" id="emailInscriptionPopup" placeholder="Email" name="email" required><br>
+            <input type="password" class="input" id="passwordInscriptionPopup" placeholder="Password" name="password" required><br>
+            <button type="submit">Sign up</button>
+        </form>
+        <div class="form-section">
+            <p>Already have an account? <a href="#" id="openConnexionPopupFromInscription">Log in</a> </p>
+            <button id="closeInscriptionPopup">Close</button>
+        </div>
+    </div>
+
+    <!-- Contenu du pop-up de connexion -->
+    <div id="fenetreConnexion">
+        <h2>Connection</h2>
+        <!-- Formulaire de connexion -->
+        <!-- Remarque: Ajoutez le formulaire de connexion ici -->
+        <div class="form-section">
+            <p>Don't have an account? <a href="#" id="openInscriptionPopupFromConnexion">Sign up</a> </p>
+            <button id="closeConnexionPopup">Close</button>
+        </div>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>
+
+
+
