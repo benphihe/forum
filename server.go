@@ -1,0 +1,5 @@
+package forum
+
+func server() {
+
+}
