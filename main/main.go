@@ -1,5 +1,9 @@
 package main
 
-func main() {
+import (
+	"forum"
+)
 
+func main() {
+	forum.Server()
 }

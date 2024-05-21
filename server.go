@@ -7,10 +7,6 @@ import (
 )
 
 func Server() {
-	http.HandleFunc("/register", Register)
-	http.HandleFunc("/login", Login)
-	http.HandleFunc("/login-form", LoginForm)
-	http.HandleFunc("/register-form", RegisterForm)
 	http.HandleFunc("/", Home)
 	fileServer := http.FileServer(http.Dir("templates/assets/"))
 	http.Handle("/assets/", http.StripPrefix("/assets", fileServer))
@@ -24,12 +20,4 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		panic(error)
 	}
 	tmpl.ExecuteTemplate(w, "index", nil)
-}
-
-func Forum(w http.ResponseWriter, r *http.Request) {
-	tmpl, error := template.ParseGlob("templates/*.html")
-	if error != nil {
-		panic(error)
-	}
-	tmpl.ExecuteTemplate(w, "main", nil)
 }
