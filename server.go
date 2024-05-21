@@ -8,6 +8,7 @@ import (
 
 func Server() {
 	http.HandleFunc("/", Home)
+	http.HandleFunc("/login", Login)
 	fileServer := http.FileServer(http.Dir("templates/assets/"))
 	http.Handle("/assets/", http.StripPrefix("/assets", fileServer))
 	fmt.Println("http://localhost:8000/  Server is running in port 8000")
@@ -20,4 +21,12 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		panic(error)
 	}
 	tmpl.ExecuteTemplate(w, "index", nil)
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	tmpl, error := template.ParseGlob("templates/*.html")
+	if error != nil {
+		panic(error)
+	}
+	tmpl.ExecuteTemplate(w, "login", nil)
 }
