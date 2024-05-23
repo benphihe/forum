@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Bienvenue sur notre site</h1>
+    <p>Bienvenue sur la page d'accueil. Cliquez sur le lien ci-dessous pour vous inscrire.</p>
+    <p><a href="#" id="openInscriptionPopup">Inscription</a></p>
+    <div id="popupOverlay"></div>
+
+    <div id="fenetreInscription">
+        <h2>Inscription</h2>
+        <form class="form" id="inscriptionForm">
+            <input type="text" class="input" id="fullName" name="fullname" placeholder="Nom complet" required><br>
+            <input type="email" class="input" id="emailInscription" placeholder="Email" name="email" required><br>
+            <input type="password" class="input" id="passwordInscription" placeholder="Mot de passe" name="password" required><br>
+            <button type="submit">S'inscrire</button>
+        </form>
+        <div class="form-section">
+            <p>Vous avez déjà un compte? <a href="#" id="openConnexionPopupFromInscription">Se connecter</a></p>
+            <button id="closeInscriptionPopup">Fermer</button>
+        </div>
+    </div>
+
+    <div id="fenetreConnexion">
+        <h2>Connexion</h2>
+        <form class="form" id="connexionForm">
+            <input type="email" class="input" id="emailConnexion" placeholder="E-mail" name="email" required><br>
+            <input type="password" class="input" id="passwordConnexion" placeholder="Mot de passe" name="password" required><br>
+            <button type="submit">Se connecter</button>
+        </form>
+        <div class="form-section">
+            <p>Vous n'avez pas de compte? <a href="#" id="openInscriptionPopupFromConnexion">S'inscrire</a></p>
+            <button id="closeConnexionPopup">Fermer</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
