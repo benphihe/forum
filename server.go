@@ -2,8 +2,8 @@ package main
 
 import (
 	"net/http"
-
 	"Forum"
+	
 )
 
 func main() {
@@ -12,6 +12,7 @@ func main() {
 	http.HandleFunc("/connexion", Forum.ConnexionPage)
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
 	http.HandleFunc("/post", Forum.PostPage)
+	http.HandleFunc("/comment", Forum.CommentPage)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	// http.HandleFunc("/sent", Accueil.GetSign)
 	// http.HandleFunc("/sentConnect", Accueil.GetSignConnect)
