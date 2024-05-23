@@ -29,16 +29,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('popupOverlay').style.display = 'block';
     });
 
-    document.querySelector('#fenetreInscription form').addEventListener('submit', async function(e) {
+    document.querySelector('#formInscription').addEventListener('submit', async function(e) {
         e.preventDefault();
         const fullName = document.getElementById('fullName').value;
-        const email = document.getElementById('emailInscription').value;
-        const password = document.getElementById('passwordInscription').value;
+        const email = document.getElementById('emailInscriptionPopup').value;
+        const password = document.getElementById('passwordInscriptionPopup').value;
 
-        const response = await fetch('http://localhost:5000/api/register', {
+        const response = await fetch('http://localhost:5000/inscription', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fullName, email, password })
+            body: JSON.stringify({ fullname: fullName, email, password })
         });
 
         if (response.ok) {
@@ -50,12 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.querySelector('#fenetreConnexion form').addEventListener('submit', async function(e) {
+    document.querySelector('#formConnexion').addEventListener('submit', async function(e) {
         e.preventDefault();
         const email = document.getElementById('emailConnexion').value;
         const password = document.getElementById('passwordConnexion').value;
 
-        const response = await fetch('http://localhost:5000/api/login', {
+        const response = await fetch('http://localhost:5000/connexion', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (response.ok) {
             const data = await response.json();
             alert('Connexion réussie!');
-            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
             document.getElementById('fenetreConnexion').style.display = 'none';
             document.getElementById('popupOverlay').style.display = 'none';
         } else {
@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
 
 
 

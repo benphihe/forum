@@ -14,10 +14,10 @@
 
     <div id="fenetreInscription">
         <h2>Inscription</h2>
-        <form class="form" method="POST" action="/inscription">
+        <form class="form" id="inscriptionForm">
             <input type="text" class="input" id="fullName" name="fullname" placeholder="Nom complet" required><br>
-            <input type="email" class="input" id="emailInscriptionPopup" placeholder="Email" name="email" required><br>
-            <input type="password" class="input" id="passwordInscriptionPopup" placeholder="Mot de passe" name="password" required><br>
+            <input type="email" class="input" id="emailInscription" placeholder="Email" name="email" required><br>
+            <input type="password" class="input" id="passwordInscription" placeholder="Mot de passe" name="password" required><br>
             <button type="submit">S'inscrire</button>
         </form>
         <div class="form-section">
@@ -28,7 +28,7 @@
 
     <div id="fenetreConnexion">
         <h2>Connexion</h2>
-        <form class="form" method="POST" action="/connexion">
+        <form class="form" id="connexionForm">
             <input type="email" class="input" id="emailConnexion" placeholder="E-mail" name="email" required><br>
             <input type="password" class="input" id="passwordConnexion" placeholder="Mot de passe" name="password" required><br>
             <button type="submit">Se connecter</button>
@@ -42,6 +42,8 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
 
