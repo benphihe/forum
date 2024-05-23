@@ -12,12 +12,12 @@
     <p><a href="#" id="openInscriptionPopup">Inscription</a></p>
     <div id="popupOverlay"></div>
 
-    <div id="fenetreInscription">
+    <div id="fenetreInscription" style="display:none;">
         <h2>Inscription</h2>
-        <form class="form" id="inscriptionForm">
+        <form class="form" method="POST">
             <input type="text" class="input" id="fullName" name="fullname" placeholder="Nom complet" required><br>
-            <input type="email" class="input" id="emailInscription" placeholder="Email" name="email" required><br>
-            <input type="password" class="input" id="passwordInscription" placeholder="Mot de passe" name="password" required><br>
+            <input type="email" class="input" id="emailInscription" name="email" placeholder="Email" required><br>
+            <input type="password" class="input" id="passwordInscription" name="password" placeholder="Mot de passe" required><br>
             <button type="submit">S'inscrire</button>
         </form>
         <div class="form-section">
@@ -26,11 +26,11 @@
         </div>
     </div>
 
-    <div id="fenetreConnexion">
+    <div id="fenetreConnexion" style="display:none;">
         <h2>Connexion</h2>
-        <form class="form" id="connexionForm">
-            <input type="email" class="input" id="emailConnexion" placeholder="E-mail" name="email" required><br>
-            <input type="password" class="input" id="passwordConnexion" placeholder="Mot de passe" name="password" required><br>
+        <form class="form" method="POST">
+            <input type="email" class="input" id="emailConnexion" name="email" placeholder="E-mail" required><br>
+            <input type="password" class="input" id="passwordConnexion" name="password" placeholder="Mot de passe" required><br>
             <button type="submit">Se connecter</button>
         </form>
         <div class="form-section">
@@ -42,6 +42,9 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
 
 
 

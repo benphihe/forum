@@ -29,16 +29,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('popupOverlay').style.display = 'block';
     });
 
-    document.querySelector('#formInscription').addEventListener('submit', async function(e) {
+    document.querySelector('#fenetreInscription form').addEventListener('submit', async function(e) {
         e.preventDefault();
-        const fullName = document.getElementById('fullName').value;
-        const email = document.getElementById('emailInscriptionPopup').value;
-        const password = document.getElementById('passwordInscriptionPopup').value;
+        const fullname = document.getElementById('fullName').value;
+        const email = document.getElementById('emailInscription').value;
+        const password = document.getElementById('passwordInscription').value;
 
-        const response = await fetch('http://localhost:5000/inscription', {
+        const response = await fetch('/inscription', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fullname: fullName, email, password })
+            body: JSON.stringify({ fullname, email, password })
         });
 
         if (response.ok) {
@@ -46,16 +46,17 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('fenetreInscription').style.display = 'none';
             document.getElementById('popupOverlay').style.display = 'none';
         } else {
-            alert('Erreur lors de l\'inscription');
+            const errorData = await response.json();
+            alert(`Erreur lors de l'inscription: ${errorData.error}`);
         }
     });
 
-    document.querySelector('#formConnexion').addEventListener('submit', async function(e) {
+    document.querySelector('#fenetreConnexion form').addEventListener('submit', async function(e) {
         e.preventDefault();
         const email = document.getElementById('emailConnexion').value;
         const password = document.getElementById('passwordConnexion').value;
 
-        const response = await fetch('http://localhost:5000/connexion', {
+        const response = await fetch('/connexion', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -64,14 +65,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (response.ok) {
             const data = await response.json();
             alert('Connexion réussie!');
-            localStorage.setItem('user', JSON.stringify(data.user));
             document.getElementById('fenetreConnexion').style.display = 'none';
             document.getElementById('popupOverlay').style.display = 'none';
         } else {
-            alert('Erreur lors de la connexion');
+            const errorData = await response.json();
+            alert(`Erreur lors de la connexion: ${errorData.message}`);
         }
     });
 });
+
+
+
 
 
 

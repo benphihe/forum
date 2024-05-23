@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 
 const dbname = 'ma_base_de_donnees.db';
+
 let db = new sqlite3.Database(dbname, (err) => {
     if (err) {
         console.error(err.message);
@@ -19,22 +20,28 @@ let db = new sqlite3.Database(dbname, (err) => {
     }
     console.log('Connected to the SQLite database.');
 
-    db.run(`CREATE TABLE IF NOT EXISTS utilisateurs (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        fullname TEXT,
-        email TEXT UNIQUE,
-        mdp TEXT
-    )`, (err) => {
+    db.run(`DROP TABLE IF EXISTS utilisateurs`, (err) => {
         if (err) {
-            console.log('Table already exists.');
+            console.error(err.message);
         }
+        db.run(`CREATE TABLE IF NOT EXISTS utilisateurs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fullname TEXT,
+            email TEXT UNIQUE,
+            mdp TEXT
+        )`, (err) => {
+            if (err) {
+                console.error(err.message);
+            }
+            console.log('Table utilisateurs créée.');
+        });
     });
 });
 
 app.post('/inscription', (req, res) => {
-    const { fullname, email, mdp } = req.body;
+    const { fullname, email, password } = req.body;
     const sql = 'INSERT INTO utilisateurs (fullname, email, mdp) VALUES (?, ?, ?)';
-    db.run(sql, [fullname, email, mdp], function(err) {
+    db.run(sql, [fullname, email, password], function(err) {
         if (err) {
             return res.status(400).json({ error: err.message });
         }
@@ -43,28 +50,30 @@ app.post('/inscription', (req, res) => {
 });
 
 app.post('/connexion', (req, res) => {
-    const { email, mdp } = req.body;
+    const { email, password } = req.body;
     const sql = 'SELECT * FROM utilisateurs WHERE email = ? AND mdp = ?';
-    db.get(sql, [email, mdp], (err, row) => {
+    db.get(sql, [email, password], (err, row) => {
         if (err) {
             return res.status(400).json({ error: err.message });
         }
         if (row) {
             res.json({ message: 'Connexion réussie', user: row });
-        } else
-        {
-          res.status(401).json({ message: 'Email ou mot de passe incorrect' });
-      }
-  });
+        } else {
+            res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+        }
+    });
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Accueil.html'));
+    res.sendFile(path.join(__dirname, 'Accueil.html'));
 });
 
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+    console.log(`Server running on port ${port}`);
 });
+
+
+
 
 
 
