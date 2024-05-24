@@ -9,7 +9,7 @@ import (
 )
 
 
-func inscription() {
+func Inscription() {
     var err error
     db, err = sql.Open("sqlite3", "ma_base_de_donnees.db")
     if err != nil {

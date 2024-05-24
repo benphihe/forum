@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-func Accueil() {
-	http.HandleFunc("/", homeHandler)
+func Websitestart() {
+	http.HandleFunc("/", HomeHandler)
 	http.HandleFunc("/style.css", func(w http.ResponseWriter, r *http.Request) { http.ServeFile(w, r, "style.css") })
 	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
 
@@ -14,6 +14,6 @@ func Accueil() {
 	log.Fatal(http.ListenAndServe(":5000", nil))
 }
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "Accueil.html")
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "STATIC/HTML/Accueil.html")
 }
