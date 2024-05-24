@@ -6,6 +6,8 @@ import (
 )
 
 func main() {
+	fs := http.FileServer(http.Dir("STATIC"))
+	http.Handle("/STATIC/", http.StripPrefix("/STATIC/", fs))
 	Forum.Websitestart()
 	Forum.Connexion()
 	Forum.Inscription()
@@ -16,5 +18,4 @@ func main() {
 	// http.HandleFunc("/sentText", Accueil.GetPostInformation)
 	// http.HandleFunc("/sentCmt", Accueil.GetCmtInformation)
 
-	http.ListenAndServe(":8080", nil)
 }
