@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-	http.Handle("/", fs)
 	Forum.Websitestart()
 	Forum.Connexion()
 	Forum.Inscription()
