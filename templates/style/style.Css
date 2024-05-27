@@ -1,5 +1,118 @@
+.menu-box {
+    width: 92px;
+    height: 925px;
+    margin-left: -0.5%;
+    margin-top: 20px;
+    flex-shrink: 0;
+    
+    border-radius: 0px 20px 0px 0px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
+  }
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  nav ul li {
+    position: relative;
+  }
+  
+  nav ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  nav ul li ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    display: none;
+  }
+  
+  nav ul li:hover ul {
+    display: block;
+  }
+  
+  nav ul li ul li {
+    width: 100%;
+  }
+  
+  nav ul li ul li a {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  nav ul li ul li a:hover {
+    background-color: #f2f2f2;
+  }
 
 
-h3{
-    color: red;
+.header {
+    width: 101%;
+    height: 100px;
+    margin-left: -10px;
+    margin-top: -3%;
+    flex-shrink: 0;
+    border-radius: 0px 0px 20px 20px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.14) 63.5%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
 }
+  .search-bar {
+    width: 517px;
+    height: 55px;
+    top: -115px;
+    left: 650px;
+    position: relative ;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #FFF;
+  }
+  .search-bar input {
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+    border: none;
+    border-radius: 20px;
+    background: #FFF;
+    font-size: 18px;
+    color: #333;
+  }
+  .search-bar button {
+    background-image: url(/images/loupe\ shearch.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+      border: none;
+      cursor: pointer;
+    }
+  
+
+
+.header h1 {
+    -webkit-text-stroke-width: 1;
+    -webkit-text-stroke-color: #000;
+    width: 300px;
+    height: 96px;
+    flex-shrink: 0;
+    background-image: linear-gradient(45deg, rgba(236, 253, 24, 0.87), #000000);
+    transform: skewX(-10deg);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    color: transparent;
+    font-family: Inter;
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    text-transform: uppercase;
+    
+}
+
