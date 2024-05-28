@@ -1,27 +1,29 @@
 package Forum
 
 import (
-    _ "database/sql"
+    "database/sql"
     "net/http"
-    "encoding/json"
 )
 
 type Message struct {
-    ID       int    `json:"id"`
-    Content  string `json:"content"`
-    UserID   int    `json:"user_id"`
-    TopicID  int    `json:"topic_id"`
+    ID       int
+    Content  string
+    UserID   int
+    TopicID  int
 }
 
-func AddMessage(w http.ResponseWriter, r *http.Request) {
-    var m Message
-    err := json.NewDecoder(r.Body).Decode(&m)
+func AddMessage(w http.ResponseWriter, r *http.Request, db *sql.DB) {
+    err := r.ParseForm()
     if err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
     }
 
-    _, err = db.Exec("INSERT INTO messages (content, user_id, topic_id) VALUES (?, ?, ?)", m.Content, m.UserID, m.TopicID)
+    content := r.Form.Get("content")
+    userID := r.Form.Get("user_id")
+    topicID := r.Form.Get("topic_id")
+
+    _, err = db.Exec("INSERT INTO messages (content, user_id, topic_id) VALUES (?, ?, ?)", content, userID, topicID)
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
@@ -30,3 +32,5 @@ func AddMessage(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(http.StatusCreated)
     w.Write([]byte("Message ajouté avec succès"))
 }
+
+
