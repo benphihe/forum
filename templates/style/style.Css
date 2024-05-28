@@ -1,3 +1,6 @@
+body {
+  background-image: url(/images/image-3.png);
+}
 .menu-box {
     width: 92px;
     height: 925px;
@@ -8,52 +11,71 @@
     border-radius: 0px 20px 0px 0px;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
   }
-nav ul {
+  
+  /* Retirer les pastilles avant les items des listes */
+  ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-between;
   }
   
-  nav ul li {
-    position: relative;
+  body {
+    background-color: #e7e7e8;
   }
   
-  nav ul li a {
-    display: block;
-    padding: 10px;
+  a {
+    color: #006dcc;
+    font-size: 32px;
     text-decoration: none;
-    color: #333;
   }
   
-  nav ul li ul {
+  .menu-label,
+  .menu-cb {
+    cursor: pointer;
+    appearance: none;
     position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    display: none;
+    height: 32px;
+    width: 32px;
+    left :30px;
+    top: 150px;
+    z-index: 4;
   }
   
-  nav ul li:hover ul {
-    display: block;
-  }
-  
-  nav ul li ul li {
+  .menu-button {
+    height: 100%;
     width: 100%;
   }
   
-  nav ul li ul li a {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+  .menu-nav {
+    position: relative;
+    height: 100%;
+    width: 1000%;
+    max-width: 400px;
+    padding-top: 110px;
+    text-align: right;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
+    z-index: 2;
+    transform: translateX(-100%);
+    transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    border-radius: 0px 0px 20px 20px;
   }
   
-  nav ul li ul li a:hover {
-    background-color: #f2f2f2;
+  .menu-item {
+    padding: .5em 20px;
+    border-top: 1px solid #ccc;
   }
-
-
+  
+  .menu-cb:checked ~ .menu-nav {
+    transform: translateX(0);
+    
+    border-radius: 0px 20px 20px 0px;
+  }
+  
+  .menu-cote {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
 .header {
     width: 101%;
     height: 100px;
@@ -83,16 +105,17 @@ nav ul {
     font-size: 18px;
     color: #333;
   }
-  .search-bar button {
+  .button-search {
     background-image: url(/images/loupe\ shearch.png);
       background-repeat: no-repeat;
-      background-position: center;
-      width: 100%;
+      background-size: contain;
+      background-color: transparent; 
+      width: 6%;
       height: 100%;
       border: none;
+      margin-top: -50px;
       cursor: pointer;
     }
-  
 
 
 .header h1 {
@@ -116,3 +139,14 @@ nav ul {
     
 }
 
+.button-compte {
+  background-image: url(/images/image\ de\ compte.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent; 
+  width: 6%;
+  height: 100%;
+  border: none;
+  margin-top: -100px;
+  cursor: pointer;
+}
