@@ -1,41 +1,48 @@
 package Forum
 
 import (
-    "database/sql"
-    "encoding/json"
-    "net/http"
+	"fmt"
+	//"log"
+	"net/http"
+	_"github.com/mattn/go-sqlite3"
+    
+    //envoie "../BDD"
 )
 
-func InscriptionHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
-    var u User
-    err := json.NewDecoder(r.Body).Decode(&u)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
 
-    stmt, err := db.Prepare("INSERT INTO utilisateurs(fullname, email, mdp) VALUES(?,?,?)")
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    res, err := stmt.Exec(u.FullName, u.Email, u.Password)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    id, err := res.LastInsertId()
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
 
-    response := map[string]interface{}{
-        "id":      id,
-        "message": "Inscription réussie!",
-    }
-    w.Header().Set("Content-Type", "application/json")
-    json.NewEncoder(w).Encode(response)
+func InscriptionPage(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+		return
+	}
+
+	pseudo := r.FormValue("pseudo")
+	password := r.FormValue("password")
+
+	fmt.Println("Pseudo: ", pseudo)
+	fmt.Println("Mot de passe: ", password)
+
+	fmt.Fprintf(w, "Inscription réussie")
 }
 
+// func Send(w http.ResponseWriter, r *http.Request) {
+// 	http.ServeFile(w, r, "send.html")
+// 	err := r.ParseForm()
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
 
+// 	pseudo := r.FormValue("Pseudo")
+// 	password := r.FormValue("Password")
+
+// 	fmt.Println(" Identidiant d'Inscription : ", pseudo, "/", password)
+// 	http.Redirect(w, r, "/connexion", http.StatusSeeOther)
+// 	statusenvoie, db := envoie.GestionData()
+// 	status := envoie.NewUser(pseudo, password, db)
+// 	if status == 0 && statusenvoie == 0 {
+// 		fmt.Println("creation d'un nouveau utilisateur")
+// 	} else {
+// 		fmt.Println("echec de la creation d'un nouveau utilisateur")
+// 	}
+// }
