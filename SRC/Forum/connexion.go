@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
 )
 
 func Connexion() {
@@ -17,10 +16,10 @@ func Connexion() {
 	}
 	defer db.Close()
 
-	http.HandleFunc("/connexion", connexionHandler)
+	http.HandleFunc("/connexion", Connec)
 }
 
-func connexionHandler(w http.ResponseWriter, r *http.Request) {
+func Connec(w http.ResponseWriter, r *http.Request) {
 	var u User
 	err := json.NewDecoder(r.Body).Decode(&u)
 	if err != nil {

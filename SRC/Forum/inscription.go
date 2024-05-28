@@ -1,60 +1,48 @@
 package Forum
 
 import (
-    "database/sql"
-    "encoding/json"
-    "fmt"
-    "net/http"
-    "log"
+	"fmt"
+	//"log"
+	"net/http"
+	_"github.com/mattn/go-sqlite3"
+    
+    //envoie "../BDD"
 )
 
 
-func Inscription() {
-    var err error
-    db, err = sql.Open("sqlite3", "ma_base_de_donnees.db")
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer db.Close()
 
-    sqlStmt := `
-    CREATE TABLE IF NOT EXISTS utilisateurs (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        fullname TEXT,
-        email TEXT UNIQUE,
-        mdp TEXT
-    );`
-    _, err = db.Exec(sqlStmt)
-    if err != nil {
-        log.Printf("%q: %s\n", err, sqlStmt)
-        return
-    }
+func InscriptionPage(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+		return
+	}
 
-    http.HandleFunc("/inscription", inscriptionHandler)
+	pseudo := r.FormValue("pseudo")
+	password := r.FormValue("password")
+
+	fmt.Println("Pseudo: ", pseudo)
+	fmt.Println("Mot de passe: ", password)
+
+	fmt.Fprintf(w, "Inscription réussie")
 }
 
-func inscriptionHandler(w http.ResponseWriter, r *http.Request) {
-    var u User
-    err := json.NewDecoder(r.Body).Decode(&u)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
+// func Send(w http.ResponseWriter, r *http.Request) {
+// 	http.ServeFile(w, r, "send.html")
+// 	err := r.ParseForm()
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
 
-    stmt, err := db.Prepare("INSERT INTO utilisateurs(fullname, email, mdp) values(?,?,?)")
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    res, err := stmt.Exec(u.FullName, u.Email, u.Password)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    id, err := res.LastInsertId()
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    fmt.Fprintf(w, "Inscription réussie, id=%d", id)
-}
+// 	pseudo := r.FormValue("Pseudo")
+// 	password := r.FormValue("Password")
+
+// 	fmt.Println(" Identidiant d'Inscription : ", pseudo, "/", password)
+// 	http.Redirect(w, r, "/connexion", http.StatusSeeOther)
+// 	statusenvoie, db := envoie.GestionData()
+// 	status := envoie.NewUser(pseudo, password, db)
+// 	if status == 0 && statusenvoie == 0 {
+// 		fmt.Println("creation d'un nouveau utilisateur")
+// 	} else {
+// 		fmt.Println("echec de la creation d'un nouveau utilisateur")
+// 	}
+// }
