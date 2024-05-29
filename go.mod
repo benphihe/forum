@@ -1,10 +1,6 @@
 module test
 
 go 1.22.3
-<<<<<<< HEAD
->>>>>>> theo
-=======
-
 require (
 	github.com/fatih/color v1.17.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
