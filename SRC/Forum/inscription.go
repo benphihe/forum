@@ -2,47 +2,35 @@ package Forum
 
 import (
 	"fmt"
-	//"log"
+	"log"
 	"net/http"
-	_"github.com/mattn/go-sqlite3"
-    
-    //envoie "../BDD"
+	"text/template"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
-
-
 func InscriptionPage(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
-		return
+	if r.Method == "GET" {
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		t, err := template.ParseFiles("STATIC/HTML/inscription.html")
+		if err != nil {
+			log.Fatalf("Template execution: %s", err)
+			return
+		}
+		t.Execute(w, nil)
+	} else if r.Method == "POST" {
+		pseudo := r.FormValue("pseudo")
+		password := r.FormValue("password")
+		passwordConfirm := r.FormValue("passwordConfirm")
+		email := r.FormValue("email")
+
+		if password != passwordConfirm {
+			http.Error(w, "Les mots de passe ne correspondent pas", http.StatusBadRequest)
+			return
+		}
+
+		Send(pseudo, password, email)
+
+		fmt.Fprintf(w, "Inscription réussie")
 	}
-
-	pseudo := r.FormValue("pseudo")
-	password := r.FormValue("password")
-
-	fmt.Println("Pseudo: ", pseudo)
-	fmt.Println("Mot de passe: ", password)
-
-	fmt.Fprintf(w, "Inscription réussie")
 }
-
-// func Send(w http.ResponseWriter, r *http.Request) {
-// 	http.ServeFile(w, r, "send.html")
-// 	err := r.ParseForm()
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	pseudo := r.FormValue("Pseudo")
-// 	password := r.FormValue("Password")
-
-// 	fmt.Println(" Identidiant d'Inscription : ", pseudo, "/", password)
-// 	http.Redirect(w, r, "/connexion", http.StatusSeeOther)
-// 	statusenvoie, db := envoie.GestionData()
-// 	status := envoie.NewUser(pseudo, password, db)
-// 	if status == 0 && statusenvoie == 0 {
-// 		fmt.Println("creation d'un nouveau utilisateur")
-// 	} else {
-// 		fmt.Println("echec de la creation d'un nouveau utilisateur")
-// 	}
-// }
