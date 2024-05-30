@@ -3,11 +3,17 @@ package Forum
 import (
 	"database/sql"
 	"log"
+	"os"
 )
 
 var db *sql.DB
 
 func Open() {
+	if _, err := os.Stat("BDD/users.db"); os.IsNotExist(err) {
+		log.Fatal("Database file does not exist")
+		return
+	}
+
 	var err error
 	db, err = sql.Open("sqlite3", "BDD/users.db")
 	if err != nil {
