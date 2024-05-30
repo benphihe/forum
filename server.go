@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	Forum.Init()
+	Forum.Open()
 	Forum.Send("pseudo", "password", "email")
 	http.HandleFunc("/", HomeHandler)
 	http.HandleFunc("/connexion", Forum.Connexion)

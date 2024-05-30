@@ -31,6 +31,8 @@ func InscriptionPage(w http.ResponseWriter, r *http.Request) {
 
 		Send(pseudo, password, email)
 
-		fmt.Fprintf(w, "Inscription réussie")
+		fmt.Fprintf(w, "Inscription réussie\n")
+		fmt.Fprintf(w, "Pseudo: %s\n", pseudo)
+		fmt.Fprintf(w, "Email: %s\n", email)
 	}
 }
