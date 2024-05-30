@@ -13,6 +13,7 @@ func main() {
 	Forum.Send("pseudo", "password", "email")
 	http.HandleFunc("/", HomeHandler)
 	http.HandleFunc("/connexion", Forum.Connexion)
+	
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
 	fs := http.FileServer(http.Dir("STATIC"))
 	http.Handle("/STATIC/", http.StripPrefix("/STATIC/", fs))
