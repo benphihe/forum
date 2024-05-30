@@ -1,9 +1,7 @@
 module test
 
 go 1.22.3
-<<<<<<< HEAD
->>>>>>> theo
-=======
+
 
 require (
 	github.com/fatih/color v1.17.0 // indirect
