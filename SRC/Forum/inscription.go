@@ -33,6 +33,7 @@ func InscriptionPage(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Fprintf(w, "Inscription réussie\n")
 		fmt.Fprintf(w, "Pseudo: %s\n", pseudo)
+		fmt.Fprintf(w, "Password: %s\n", password)
 		fmt.Fprintf(w, "Email: %s\n", email)
 	}
 }

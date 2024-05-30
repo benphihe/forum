@@ -15,15 +15,13 @@
     </script>
 </head>
 <body>
-    <form method="POST" action="/connexion" onsubmit="return validateForm()">
+    <form method="POST" action="/User" onsubmit="return validateForm()">
         <label for="pseudo">Pseudo:</label><br>
         <input type="text" id="pseudo" name="pseudo"><br>
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email"><br>
         <label for="password">Mot de passe:</label><br>
         <input type="password" id="password" name="password"><br>
-        <label for="passwordConfirm">Confirmer le mot de passe:</label><br>
-        <input type="password" id="passwordConfirm" name="passwordConfirm"><br>
         <input type="submit" value="Se connecter">
     </form>
 </body>

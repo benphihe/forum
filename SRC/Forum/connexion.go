@@ -39,7 +39,7 @@ func Authenticate(email string, password string) bool {
 	defer db.Close()
 
 	var storedPassword string
-	err = db.QueryRow("SELECT password FROM users WHERE email = ?", email).Scan(&storedPassword)
+	err = db.QueryRow("SELECT password FROM Utilisateurs WHERE email = ?", email).Scan(&storedPassword)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return false
@@ -47,7 +47,6 @@ func Authenticate(email string, password string) bool {
 			log.Fatal(err)
 		}
 	}
-
 	return password == storedPassword
 }
 

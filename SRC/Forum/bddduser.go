@@ -16,7 +16,7 @@ func Open() {
 }
 
 func CreateUser(pseudo string, password string, email string) error {
-	_, err := db.Exec("insert into users (pseudo, password, email) values (?, ?, ?)", pseudo, password, email)
+	_, err := db.Exec("insert into Utilisateurs (pseudo, password, email) values (?, ?, ?)", pseudo, password, email)
 	return err
 }
 
@@ -26,6 +26,3 @@ func Send(pseudo string, password string, email string) {
 		log.Fatal(err)
 	}
 }
-
-
-
