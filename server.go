@@ -14,6 +14,7 @@ func main() {
 	http.HandleFunc("/", HomeHandler)
 	http.HandleFunc("/connexion", Forum.Connexion)
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
+	http.HandleFunc("/comment", Forum.AddMessage)
 	fs := http.FileServer(http.Dir("STATIC"))
 	http.Handle("/STATIC/", http.StripPrefix("/STATIC/", fs))
 
