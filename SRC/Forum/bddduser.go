@@ -5,29 +5,13 @@ import (
 	"log"
 )
 
-type User struct {
-	ID       int    `json:"id"`
-	FullName string `json:"fullname"`
-	Email    string `json:"email"`
-	Password string `json:"mdp"`
-}
-
 var db *sql.DB
 
-func Init() {
+func Open() {
 	var err error
 	db, err = sql.Open("sqlite3", "BDD/users.db")
 	if err != nil {
 		log.Fatal(err)
-	}
-
-	sqlStmt := `
-	create table if not exists users (id integer not null primary key, pseudo text, password text, email text);
-	`
-	_, err = db.Exec(sqlStmt)
-	if err != nil {
-		log.Printf("%q: %s\n", err, sqlStmt)
-		return
 	}
 }
 
