@@ -50,3 +50,5 @@ func Authenticate(email string, password string) bool {
 
 	return password == storedPassword
 }
+
+
