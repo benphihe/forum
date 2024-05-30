@@ -8,10 +8,7 @@ body {
     margin-left: -0.5%;
     margin-top: 20px;
     flex-shrink: 0;
-    
-    border-radius: 0px 20px 0px 0px;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
-  }
+    }
   
   /* Retirer les pastilles avant les items des listes */
   ul {
@@ -23,7 +20,13 @@ body {
   }
   
   a {
-    color: #006dcc;
+    background-image: linear-gradient(45deg, rgba(236, 253, 24, 0.87), #000000);
+    transform: skewX(-10deg);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    color: transparent;
+    font-family: Inter;
     font-size: 32px;
     text-decoration: none;
   }
@@ -33,10 +36,10 @@ body {
     cursor: pointer;
     appearance: none;
     position: absolute;
-    height: 32px;
-    width: 32px;
-    left :30px;
-    top: 150px;
+    height: 45px;
+    width: 45px;
+    left :35px;
+    top: 250px;
     z-index: 4;
   }
   
@@ -54,20 +57,25 @@ body {
     text-align: right;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
     z-index: 2;
-    transform: translateX(-100%);
-    transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    border-radius: 0px 0px 20px 20px;
+    transform: translateX(-70%);
+    transition: transform 0.7s cubic-bezier(0.6, -0.28, 0.74, 0.05);
+    border-radius: 20px;
   }
   
   .menu-item {
     padding: .5em 20px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #000000;
   }
   
   .menu-cb:checked ~ .menu-nav {
     transform: translateX(0);
     
     border-radius: 0px 20px 20px 0px;
+  }
+
+  .menu-item a i {
+    margin-left:40px;
+    margin-right: 20px;
   }
   
   .menu-cote {
@@ -88,8 +96,9 @@ body {
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.14) 63.5%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
 }
   .search-bar {
+    margin: 0 auto;
     width: auto;
-    height:auto;
+    height:80px;
     border-radius: 20px;
     display:grid;
     grid-template-columns:1fr 80px 80px;
@@ -103,15 +112,7 @@ body {
     background: #FFF;
     font-size: 18px;
     color: #333;
-  }
-  .button-search {
-      background-color: #FFF; 
-      width:80px;
-      height: 80px;
-      border: none;
-      cursor: pointer;
-      font-size:30px;
-    }
+  }   
 
 
 .header h1 {
@@ -132,6 +133,7 @@ body {
     font-weight: 900;
     line-height: normal;
     text-transform: uppercase;
+    margin-left: 50px;
     
 }
 
@@ -148,3 +150,4 @@ body {
 .debug{
   border:2px solid lime;
 }
+
