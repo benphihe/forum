@@ -6,16 +6,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
     <title>acceuil</title>
     <link rel="stylesheet" href="/STATIC/CSS/style1.Css">
-    <link rel="stylesheet" href="/STATIC/script.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 <body>
     <div class="header">
         <h1>YBLOG</h1>
-        <form class="search-bar" action="/search" method="get">
-            <input type="text" name="q" placeholder="                       Rechercher sur YBLOG">
-            <button class="button-search"type="submit"></button>
-            <button class="button-compte"></button>
-          </form>
+      
+        <form class="search-bar debug" action="/search" method="get">
+            <input type="text" name="q" placeholder="Rechercher sur YBLOG" >
+            <button class="button-search debug"type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button class="button-compte"><i class="fa-solid fa-user"></i></button>
+        </form>
     </div>
     <div class="menu-box"> 
       <label for="menu-cb" class="menu-label">
@@ -38,5 +42,6 @@
       </nav>
     </div>
     </div>
+    <script rel="stylesheet" href="/STATIC/script.js"></script>
 </body>
 </html>

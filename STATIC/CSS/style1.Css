@@ -1,5 +1,6 @@
 body {
   background-image: url(/images/image-3.png);
+  margin:0;
 }
 .menu-box {
     width: 92px;
@@ -78,25 +79,23 @@ body {
   }
 .header {
     width: 101%;
-    height: 100px;
+    min-height: 50px;
     margin-left: -10px;
-    margin-top: -3%;
+    align-items:center;
+    display:flex;
     flex-shrink: 0;
     border-radius: 0px 0px 20px 20px;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.14) 63.5%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
 }
   .search-bar {
-    width: 517px;
-    height: 55px;
-    top: -115px;
-    left: 650px;
-    position: relative ;
-    flex-shrink: 0;
+    width: auto;
+    height:auto;
     border-radius: 20px;
-    background: #FFF;
-  }
+    display:grid;
+    grid-template-columns:1fr 80px 80px;
+    grid-gap:30px;  }
   .search-bar input {
-    width: 100%;
+    width: 500px;
     height: 100%;
     padding: 0 20px;
     border: none;
@@ -106,15 +105,12 @@ body {
     color: #333;
   }
   .button-search {
-    background-image: url(/images/loupe\ shearch.png);
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-color: transparent; 
-      width: 6%;
-      height: 100%;
+      background-color: #FFF; 
+      width:80px;
+      height: 80px;
       border: none;
-      margin-top: -50px;
       cursor: pointer;
+      font-size:30px;
     }
 
 
@@ -140,13 +136,15 @@ body {
 }
 
 .button-compte {
-  background-image: url(/images/image\ de\ compte.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-color: transparent; 
-  width: 6%;
-  height: 100%;
+  background-color: #FFF; 
+  width:80px;
+  height: 80px;
   border: none;
-  margin-top: -100px;
   cursor: pointer;
+  font-size:30px;
+}
+
+
+.debug{
+  border:2px solid lime;
 }
