@@ -15,7 +15,7 @@
     </script>
 </head>
 <body>
-    <form method="POST" action="/connexion" onsubmit="return validateForm()">
+    <form method="POST" onsubmit="return validateForm()">
         <label for="pseudo">Pseudo:</label><br>
         <input type="text" id="pseudo" name="pseudo"><br>
         <label for="email">Email:</label><br>
@@ -25,6 +25,7 @@
         <label for="passwordConfirm">Confirmer le mot de passe:</label><br>
         <input type="password" id="passwordConfirm" name="passwordConfirm"><br>
         <input type="submit" value="S'inscrire">
+        <button onclick="window.location.href='connexion.html'">Se connecter</button>
     </form>
 </body>
 </html>
