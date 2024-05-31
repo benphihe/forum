@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"text/template"
 
+	"golang.org/x/crypto/bcrypt"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -29,12 +31,36 @@ func InscriptionPage(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		CreateUser(pseudo, password, email)
-		Connexion(w, r)
+		hashedPassword, err := Hash(password)
+		if err != nil {
+			http.Error(w, "Erreur lors du hachage du mot de passe", http.StatusInternalServerError)
+			return
+		}
 
-		fmt.Fprintf(w, "Inscription réussie\n")
-		fmt.Fprintf(w, "Pseudo: %s\n", pseudo)
-		fmt.Fprintf(w, "Password: %s\n", password)
-		fmt.Fprintf(w, "Email: %s\n", email)
+		CreateUser(pseudo, hashedPassword, email)
+		http.Redirect(w, r, "/connexion", http.StatusSeeOther)
 	}
+}
+
+func CreateUser(pseudo string, password string, email string) error {
+	_, db = Open()
+	if db == nil {
+		return fmt.Errorf("erreur d'ouverture de la base de données")
+	}
+	log.Printf("CreateUser a reçu : pseudo=%s, password=%s, email=%s\n", pseudo, password, email)
+	_, err := db.Exec("insert into Utilisateurs (pseudo, password, email) values (?, ?, ?)", pseudo, password, email)
+	if err != nil {
+		log.Printf("erreur lors de l'insertion des données : %s\n", err)
+	} else {
+		log.Printf("Send envoie : pseudo=%s, password=%s, email=%s\n", pseudo, password, email)
+	}
+	return err
+}
+
+func Hash(password string) (string, error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hash), nil
 }

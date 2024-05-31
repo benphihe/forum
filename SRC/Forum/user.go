@@ -1,7 +1,6 @@
 package Forum
 
 import (
-	// "fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -18,3 +17,5 @@ func User(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, nil)
 	}
 }
+
+

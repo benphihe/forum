@@ -1,9 +1,8 @@
 package Forum
 
 import (
-	"database/sql"
-	"errors"
-	"fmt"
+	// "database/sql"
+	// "errors"
 	"log"
 	"net/http"
 	"text/template"
@@ -24,9 +23,14 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 		email := r.FormValue("email")
 		password := r.FormValue("password")
 
+		log.Println("Email: ", email)
+		log.Println("Password: ", password)
+	}
+}
+
 		authenticated, err := Authenticate(email, password)
 		if err != nil {
-			if errors.Is(err, errors.New("Invalid email or password")) {
+			if errors.Is(err, errors.New("invalid email or password")) {
 				http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
 				return
 			}
@@ -34,7 +38,7 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if authenticated {
-			fmt.Fprintf(w, "Connexion réussie")
+			log.Println("Connexion réussie")
 		} else {
 			http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
 		}
