@@ -2,23 +2,20 @@ package Forum
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
-	"os"
 )
 
 var db *sql.DB
 
-func Open() {
-	if _, err := os.Stat("BDD/users.db"); os.IsNotExist(err) {
-		log.Fatal("Database file does not exist")
-		return
-	}
-
-	var err error
-	db, err = sql.Open("sqlite3", "./BDD/users.db")
+func Open() (int, *sql.DB) {
+	db, err := sql.Open("sqlite3", "BDD/Users.db") //lancer depuis : (../../bdd.go) lancer depuis serveur.go : (./BDD/ProjetForum.db) le chemin du projet devra changer dependant de l'endroit exectution
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		fmt.Print("error ouvertur base")
+		return 500, db
 	}
+	return 0, db
 }
 
 func CreateUser(pseudo string, password string, email string) error {
@@ -37,9 +34,3 @@ func Send(pseudo string, password string, email string) {
 		log.Fatal(err)
 	}
 }
-
-
-
-
-
-
