@@ -1,12 +1,13 @@
 package Forum
 
 import (
+	"database/sql"
+	"errors"
 	"fmt"
 	"log"
-	"text/template"
 	"net/http"
-	"errors"
-	"database/sql"
+	"text/template"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -24,33 +25,30 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 
 		authenticated, err := Authenticate(email, password)
-        if err != nil {
-            if errors.Is(err, errors.New("Invalid email or password")) {
-                http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
-                return
-            }
-            log.Fatal(err)
-        }
+		if err != nil {
+			if errors.Is(err, errors.New("Invalid email or password")) {
+				http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
+				return
+			}
+			log.Fatal(err)
+		}
 
-        if authenticated {
-            fmt.Fprintf(w, "Connexion réussie")
-        } else {
-            http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
-        }
-    }
+		if authenticated {
+			fmt.Fprintf(w, "Connexion réussie")
+		} else {
+			http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
+		}
+	}
 }
-
 
 func Authenticate(email string, password string) (bool, error) {
-    var storedPassword string
-    err := db.QueryRow("SELECT password FROM Utilisateurs WHERE email = ?", email).Scan(&storedPassword)
-    if err != nil {
-        if err == sql.ErrNoRows {
-            return false, nil
-        }
-        return false, err
-    }
-    return password == storedPassword, nil
+	var storedPassword string
+	err := db.QueryRow("SELECT password FROM Utilisateurs WHERE email = ?", email).Scan(&storedPassword)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return false, nil
+		}
+		return false, err
+	}
+	return password == storedPassword, nil
 }
-
-

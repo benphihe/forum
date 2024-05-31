@@ -29,7 +29,7 @@ func InscriptionPage(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		Send(pseudo, password, email)
+		CreateUser(pseudo, password, email)
 		Connexion(w, r)
 
 		fmt.Fprintf(w, "Inscription réussie\n")
