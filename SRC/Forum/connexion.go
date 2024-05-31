@@ -1,8 +1,8 @@
 package Forum
 
 import (
-	// "database/sql"
-	// "errors"
+	"database/sql"
+	"errors"
 	"log"
 	"net/http"
 	"text/template"
@@ -25,8 +25,6 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 
 		log.Println("Email: ", email)
 		log.Println("Password: ", password)
-	}
-}
 
 		authenticated, err := Authenticate(email, password)
 		if err != nil {
