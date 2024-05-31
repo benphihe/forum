@@ -3,9 +3,12 @@ package Forum
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"text/template"
+
+	"golang.org/x/crypto/bcrypt"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -44,13 +47,31 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 }
 
 func Authenticate(email string, password string) (bool, error) {
-	var storedPassword string
-	err := db.QueryRow("SELECT password FROM Utilisateurs WHERE email = ?", email).Scan(&storedPassword)
+	_, db := Open()
+	if db == nil {
+		return false, fmt.Errorf("erreur d'ouverture de la base de données")
+	}
+
+	var dbPassword string
+	err := db.QueryRow("SELECT password FROM Utilisateurs WHERE email = ?", email).Scan(&dbPassword)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return false, nil
 		}
 		return false, err
 	}
-	return password == storedPassword, nil
+
+	log.Println("Email from DB: ", email)
+	log.Println("Password from DB: ", dbPassword)
+
+	err = VerifyHash(dbPassword, password)
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
+func VerifyHash(hashedPassword, password string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
