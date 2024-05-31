@@ -19,7 +19,7 @@ body {
     background-color: #e7e7e8;
   }
   
-  a {
+  .menu-nav a {
     background-image: linear-gradient(45deg, rgba(236, 253, 24, 0.87), #000000);
     transform: skewX(-10deg);
     background-clip: text;
@@ -151,3 +151,129 @@ body {
   border:2px solid lime;
 }
 
+.background-inscirption-connexion{
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.14) 63.5%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
+  background-image: url(/images/image-3.png);
+  margin:0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 250px 1fr;
+}
+
+.header-inscription {
+  align-items:center;
+  display:flex;
+  flex-shrink: 0;
+  grid-column-start:1;
+  grid-column:1 /span 2;
+  }
+
+.header-inscription h1 {
+  -webkit-text-stroke-width: 1;
+  -webkit-text-stroke-color: #000;
+  flex-shrink: 0;
+  background-image: linear-gradient(45deg, rgba(236, 253, 24, 0.87), #000000);
+   background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  color: transparent;
+  font-family: Inter;
+  font-size: 120px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  text-transform: uppercase;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+.button-inscription  {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.debug{
+  border:2px solid lime;
+}
+
+.text-inscription{
+  display: inline-block;
+  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.text-inscription h1 {
+  font-family: Inter;
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  text-transform: uppercase;
+  margin-left: 50px;
+  text-align: center;
+}
+
+.text-inscription h2{
+  font-size: 40px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  text-transform: uppercase;
+  margin-left: 50px;
+  text-align: center;
+}
+
+/* Style the registration form container */
+.button-inscription {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+  
+  justify-content: center;
+}
+
+/* Style the registration form inputs */
+.button-inscription input[type="text"],
+.button-inscription input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.button-inscription input[type="text"]:focus,
+.button-inscription input[type="email"]:focus {
+  border-color: #333;
+  box-shadow: 0px 0px 3px rgba(0,0,0,0.1);
+}
+
+/* Style the registration form submit button */
+.button-inscription button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button-inscription button:hover {
+  background-color: #45a049;
+}

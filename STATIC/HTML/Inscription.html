@@ -2,6 +2,11 @@
 <html>
 <head>
     <title>Inscription</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/STATIC/CSS/style1.Css">
     <script>
         function validateForm() {
             var password = document.getElementById("password").value;
@@ -14,17 +19,26 @@
         }
     </script>
 </head>
-<body>
-    <form method="POST" action="/connexion" onsubmit="return validateForm()">
-        <label for="pseudo">Pseudo:</label><br>
-        <input type="text" id="pseudo" name="pseudo"><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br>
-        <label for="password">Mot de passe:</label><br>
-        <input type="password" id="password" name="password"><br>
-        <label for="passwordConfirm">Confirmer le mot de passe:</label><br>
-        <input type="password" id="passwordConfirm" name="passwordConfirm"><br>
-        <input type="submit" value="S'inscrire">
-    </form>
+<body class="background-inscirption-connexion">
+    <div class="header-inscription">
+        <h1>YBLOG</h1>
+    </div>
+    <div class="text-inscription">
+        <h1>On s'est deja vue non?</h1>
+        <h2>Si oui clique <a href="/STATIC/HTML/connexion.html" >ici</a> </h2>
+        <h2>Sinon c'est ici que ca se passe <i class="fa-solid fa-arrow-right"></i></h2>
+    </div>
+    
+<form class="button-inscription" method="POST" action="/connexion" onsubmit="return validateForm()">
+    <label for="pseudo">Pseudo:</label><br>
+    <input type="text" id="pseudo" name="pseudo"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <label for="password">Mot de passe:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <label for="passwordConfirm">Confirmer le mot de passe:</label><br>
+    <input type="password" id="passwordConfirm" name="passwordConfirm"><br>
+    <input type="submit" value="S'inscrire">
+</form>
 </body>
 </html>
