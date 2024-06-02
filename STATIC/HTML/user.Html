@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Page Utilisateur</title>
+    <title>Page de l'utilisateur</title>
 </head>
 <body>
-    <h1>Bienvenue sur la page utilisateur</h1>
-    <p>Ceci est une page utilisateur simple.</p>
-    <h1>user</h1>
+    <h1>Bonjour, {{.pseudo}}</h1>
+    <p>Votre ID est : {{.id_user}}</p>
+    <p>Votre email est : {{.Email}}</p>
     <button onclick="window.location.href='/comment'">Ajouter un commentaire</button>
 </body>
 </html>

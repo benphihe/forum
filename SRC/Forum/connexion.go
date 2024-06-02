@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 	"text/template"
 
 	"golang.org/x/crypto/bcrypt"
@@ -40,6 +41,7 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 
 		if authenticated {
 			log.Println("Connexion réussie")
+			http.Redirect(w, r, "http://localhost:8080/user?email="+url.QueryEscape(email), http.StatusSeeOther)
 		} else {
 			http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
 		}
@@ -65,6 +67,11 @@ func Authenticate(email string, password string) (bool, error) {
 	log.Println("Password from DB: ", dbPassword)
 
 	err = VerifyHash(dbPassword, password)
+	if err != nil {
+		return false, err
+	}
+
+	_, _, _, err = GetUser(email)
 	if err != nil {
 		return false, err
 	}
