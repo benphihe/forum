@@ -8,51 +8,18 @@
 </head>
 <body>
     <h1>Ajouter un Commentaire</h1>
-    <form action="/addMessage" method="post">
+    <form id="commentForm" action="/addMessage" method="post">
         <label for="content">Commentaire:</label><br>
-        <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
+        <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
         <label for="user_id">ID Utilisateur:</label><br>
-        <input type="text" id="user_id" name="user_id"><br>
+        <input type="text" id="user_id" name="user_id" required><br>
         <label for="topic_id">ID Sujet:</label><br>
-        <input type="text" id="topic_id" name="topic_id"><br>
+        <input type="text" id="topic_id" name="topic_id" required><br>
         <input type="submit" value="Ajouter Commentaire">
     </form>
-    
-
-    <script>
-        document.getElementById('commentForm').onsubmit = function(e) {
-            e.preventDefault();
-
-            var content = document.getElementById('content').value;
-            var userID = document.getElementById('user_id').value;
-            var topicID = document.getElementById('topic_id').value;
-
-            fetch('/addMessage', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    content: content,
-                    user_id: userID,
-                    topic_id: topicID,
-                }),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erreur lors de l\'ajout du commentaire');
-                }
-                return response.text();
-            })
-            .then(data => {
-                alert(data);
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Erreur lors de l\'ajout du commentaire');
-            });
-        };
-    </script>
 </body>
 </html>
+
+
+
 
