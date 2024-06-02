@@ -64,3 +64,5 @@ func Hash(password string) (string, error) {
 	}
 	return string(hash), nil
 }
+
+

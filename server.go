@@ -14,7 +14,7 @@ func main() {
 
 	Forum.Open()
 	http.HandleFunc("/", HomeHandler)
-	http.HandleFunc("/user", Forum.User)
+	http.HandleFunc("/user", Forum.UserHandler)
 	http.HandleFunc("/comment", Forum.AddMessage)
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
 	http.HandleFunc("/post", Forum.AddPost)
