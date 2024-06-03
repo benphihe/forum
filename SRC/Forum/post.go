@@ -75,3 +75,8 @@ func AddPost(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Post added successfully"))
 }
 
+
+
+
+
+
