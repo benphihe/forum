@@ -2,7 +2,88 @@ body {
   background-image: url(/images/image-3.png);
   margin:0;
 }
+.page-acceuil{
+  display: grid;
+  grid-template-areas:
+    "head head . . ."
+    "nav  tweet1  tweet2 tweet3 tweet4"
+    "nav  messages1 messages2 . ."
+    "nav  messages3 messages4 . .";
+  grid-template-rows: 115px 170px 1fr 1fr ;
+  grid-template-columns: 120px 1fr 1fr 1fr 1fr ;
+}
+.messages1{
+  grid-area: messages1;
+  background-color: #45a049;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  grid-column: 2/span 2;
+
+}
+.messages2{
+  grid-area: messages2;
+  background-color:#FA25CB;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  grid-column: 4/span 2;
+}
+.messages3{
+  grid-area: messages4;
+  background-color: #FA25CB;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  grid-column: 2/span 2;
+}
+.messages4{
+  grid-area: messages3;
+  background-color:#45a049;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  grid-column: 4/span 2;
+}
+
+.tweet1{
+  grid-area: tweet1;
+  background-color: #45a049;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+}
+.tweet2{
+  grid-area: tweet2;
+  background-color:#FA25CB;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+}
+.tweet3{
+  grid-area: tweet3;
+  background-color: #45a049;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+}
+.tweet4{
+  grid-area: tweet4;
+  background-color:#FA25CB;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+}
 .menu-box {
+  grid-area: nav;
     width: 92px;
     height: 925px;
     margin-left: -0.5%;
@@ -39,7 +120,7 @@ body {
     height: 45px;
     width: 45px;
     left :35px;
-    top: 250px;
+    top: 150px;
     z-index: 4;
   }
   
@@ -49,6 +130,8 @@ body {
   }
   
   .menu-nav {
+    
+  grid-area: nav;
     position: relative;
     height: 100%;
     width: 1000%;
@@ -57,8 +140,8 @@ body {
     text-align: right;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
     z-index: 2;
-    transform: translateX(-70%);
-    transition: transform 0.7s cubic-bezier(0.6, -0.28, 0.74, 0.05);
+    transform: translateX(-72%);
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 20px;
   }
   
@@ -86,12 +169,14 @@ body {
     width: 100%;
   }
 .header {
+    grid-area: head;
     width: 101%;
     min-height: 50px;
     margin-left: -10px;
     align-items:center;
     display:flex;
     flex-shrink: 0;
+    grid-column: 1/span 5;
     border-radius: 0px 0px 20px 20px;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.14) 63.5%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
 }
@@ -115,7 +200,7 @@ body {
   }   
 
 
-.header h1 {
+.header  a {
     -webkit-text-stroke-width: 1;
     -webkit-text-stroke-color: #000;
     width: 300px;
@@ -168,7 +253,7 @@ body {
   grid-column:1 /span 2;
   }
 
-.header-inscription h1 {
+.header-inscription a {
   -webkit-text-stroke-width: 1;
   -webkit-text-stroke-color: #000;
   flex-shrink: 0;
@@ -232,13 +317,14 @@ body {
 /* Style the registration form container */
 .button-inscription {
   width: 300px;
-  height: 300px;
+  height: fit-content;
   margin: 0 auto;
   padding: 20px;
   background-color: #f1f1f1;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+  
   
   justify-content: center;
 }
@@ -276,4 +362,15 @@ body {
 
 .button-inscription button:hover {
   background-color: #45a049;
+}
+.password
+  {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
