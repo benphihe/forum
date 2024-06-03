@@ -27,7 +27,7 @@ func main() {
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("STATIC/HTML/Accueil.html")
+	t, err := template.ParseFiles("STATIC/HTML/acceuil.html")
 	if err != nil {
 		log.Fatalf("Template execution: %s", err)
 		return
