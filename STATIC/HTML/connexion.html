@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Connexion</title>
+    <title>Inscription</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/STATIC/CSS/style1.Css">
     <script>
         function validateForm() {
             var password = document.getElementById("password").value;
@@ -14,13 +19,23 @@
         }
     </script>
 </head>
-<body>
-    <form method="POST" onsubmit="return validateForm()">
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br>
-        <label for="password">Mot de passe:</label><br>
-        <input type="password" id="password" name="password"><br>
-        <input type="submit" value="Se connecter">
-    </form>
+<body class="background-inscirption-connexion">
+    <div class="header-inscription">
+        <a href="/STATIC/HTML/acceuil.html">YBLOG</a>
+    </div>
+    <div class="text-inscription">
+        <h1>On attendais ton retour! </h1>
+        <h2>t'es jamais venu !?</h2>
+        <h2>alors clique <a href="/STATIC/HTML/Inscription.html" >ici</a> </h2>
+        <h2>Sinon c'est ici que ca se passe <i class="fa-solid fa-arrow-right"></i></h2>
+    </div>
+    
+<form class="button-inscription" method="POST" action="/connexion" onsubmit="return validateForm()">
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <label for="password">Mot de passe:</label><br>
+    <input class="password" type="password" id="password" name="password"><br>
+    <input type="submit" value="S'inscrire">
+</form>
 </body>
 </html>
