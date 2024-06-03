@@ -8,13 +8,9 @@
 </head>
 <body>
     <h1>Ajouter un Commentaire</h1>
-    <form id="commentForm" action="/addMessage" method="post">
+    <form id="commentForm" method="post">
         <label for="content">Commentaire:</label><br>
         <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
-        <label for="user_id">ID Utilisateur:</label><br>
-        <input type="text" id="user_id" name="user_id" required><br>
-        <label for="topic_id">ID Sujet:</label><br>
-        <input type="text" id="topic_id" name="topic_id" required><br>
         <input type="submit" value="Ajouter Commentaire">
     </form>
 </body>
