@@ -14,7 +14,7 @@ import (
 func CreateComment(db *sql.DB, content string, userID int, topicID int) error {
 	log.Printf("Attempting to add comment: content=%s, userID=%d, topicID=%d\n", content, userID, topicID)
 
-	_, err := db.Exec("INSERT INTO Commentaires (content, user_id, topic_id) VALUES (?, ?, ?)", content, userID, topicID)
+	_, err := db.Exec("INSERT INTO Post (content, user_id, topic_id) VALUES (?, ?, ?)", content, userID, topicID)
 	if err != nil {
 		log.Printf("erreur lors de l'insertion du commentaire : %s\n", err)
 		return fmt.Errorf("erreur lors de l'insertion du commentaire: %w", err)
