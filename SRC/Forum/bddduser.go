@@ -2,30 +2,19 @@ package Forum
 
 import (
 	"database/sql"
-	"log"
+	"fmt"  
 )
 
 var db *sql.DB
 
-func Open() {
-	var err error
-	db, err = sql.Open("sqlite3", "BDD/users.db")
+func Open() (int, *sql.DB) {
+	db, err := sql.Open("sqlite3", "BDD/Users.db")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		fmt.Print("error ouvertur base")
+		return 500, db
 	}
+	return 0, db
 }
-
-func CreateUser(pseudo string, password string, email string) error {
-	_, err := db.Exec("insert into users (pseudo, password, email) values (?, ?, ?)", pseudo, password, email)
-	return err
-}
-
-func Send(pseudo string, password string, email string) {
-	err := CreateUser(pseudo, password, email)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
 
 

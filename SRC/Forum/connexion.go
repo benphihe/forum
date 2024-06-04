@@ -1,11 +1,16 @@
 package Forum
 
 import (
+	"database/sql"
+	"errors"
 	"fmt"
 	"log"
-	"text/template"
 	"net/http"
-	"database/sql"
+	"net/url"
+	"text/template"
+
+	"golang.org/x/crypto/bcrypt"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -22,33 +27,58 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 		email := r.FormValue("email")
 		password := r.FormValue("password")
 
-		if Authenticate(email, password) {
-			fmt.Fprintf(w, "Connexion réussie")
+		log.Println("Email: ", email)
+		log.Println("Password: ", password)
+
+		authenticated, err := Authenticate(email, password)
+		if err != nil {
+			if errors.Is(err, errors.New("invalid email or password")) {
+				http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
+				return
+			}
+			log.Fatal(err)
+		}
+
+		if authenticated {
+			log.Println("Connexion réussie")
+			http.Redirect(w, r, "http://localhost:8080/user?email="+url.QueryEscape(email), http.StatusSeeOther)
 		} else {
 			http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
 		}
 	}
 }
 
-
-func Authenticate(email string, password string) bool {
-	db, err := sql.Open("sqlite3", "./users.db")
-	if err != nil {
-		log.Fatal(err)
+func Authenticate(email string, password string) (bool, error) {
+	_, db := Open()
+	if db == nil {
+		return false, fmt.Errorf("erreur d'ouverture de la base de données")
 	}
-	defer db.Close()
 
-	var storedPassword string
-	err = db.QueryRow("SELECT password FROM users WHERE email = ?", email).Scan(&storedPassword)
+	var dbPassword string
+	err := db.QueryRow("SELECT password FROM Utilisateurs WHERE email = ?", email).Scan(&dbPassword)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return false
-		} else {
-			log.Fatal(err)
+			return false, nil
 		}
+		return false, err
 	}
 
-	return password == storedPassword
+	log.Println("Email from DB: ", email)
+	log.Println("Password from DB: ", dbPassword)
+
+	err = VerifyHash(dbPassword, password)
+	if err != nil {
+		return false, err
+	}
+
+	_, _, _, err = GetUser(email)
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
 }
 
-
+func VerifyHash(hashedPassword, password string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+}
