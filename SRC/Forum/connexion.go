@@ -78,7 +78,6 @@ func Authenticate(email string, password string, w http.ResponseWriter, r *http.
 		return false, "", err
 	}
 
-	// Si l'authentification est réussie, définissez le cookie et essayez de vous connecter automatiquement
 	SetCookie(w, uuid)
 	AutoLogin(w, r)
 
