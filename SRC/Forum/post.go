@@ -1,26 +1,36 @@
 package Forum
 
 import (
-	"database/sql"
+	//"database/sql"
 	"fmt"
 	"log"
+
 	"net/http"
 	"text/template"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func CreatePost(db *sql.DB, content string, userID int, pseudo string) error {
-	log.Printf("Attempting to add post: content=%s, userID=%d, pseudo=%s\n", content, userID, pseudo)
+func CreatePost(pseudo string, id_user int, content_post string) (int, error) {
+	log.Printf("Lancement de CreatePost avec : pseudo=%s, id_user=%d, content_post=%s\n", pseudo, id_user, content_post)
 
-	_, err := db.Exec("INSERT INTO Post (content_post, id_user, pseudo) VALUES (?, ?, ?)", content, userID, pseudo)
-	if err != nil {
-		log.Printf("Error inserting post: %s\n", err)
-		return fmt.Errorf("Error inserting post: %w", err)
+	_, db := Open()
+	if db == nil {
+		return 0, fmt.Errorf("erreur d'ouverture de la base de données")
 	}
-
-	log.Printf("Post added successfully!\n")
-	return nil
+	log.Printf("CreatePost a reçu : pseudo=%s, id_user=%d, content_post=%s\n", pseudo, id_user, content_post)
+	result, err := db.Exec("INSERT INTO Post (pseudo, id_user, content_post) VALUES (?, ?, ?)", pseudo, id_user, content_post)
+	if err != nil {
+		log.Printf("erreur lors de l'insertion des données : %s\n", err)
+		return 0, err
+	} else {
+		id, err := result.LastInsertId()
+		if err != nil {
+			return 0, err
+		}
+		log.Printf("Post créé avec succès : pseudo=%s, id_user=%d, content_post=%s, id_post=%d\n", pseudo, id_user, content_post, id)
+		return int(id), nil
+	}
 }
 
 func AddPost(w http.ResponseWriter, r *http.Request) {
@@ -42,11 +52,11 @@ func AddPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	content := r.Form.Get("content_post")
-	userID := globalUserID
+	content_post := r.Form.Get("content_post")
+	id_user := globalUserID
 	pseudo := globalPseudo
 
-	log.Printf("Received form data: content=%s, userID=%d, pseudo=%s\n", content, userID, pseudo)
+	log.Printf("Received form data: content_post=%s, id_user=%d, pseudo=%s\n", content_post, id_user, pseudo)
 
 	statusCode, db := Open()
 	if statusCode != 0 {
@@ -55,21 +65,9 @@ func AddPost(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	err = CreatePost(db, content, userID, pseudo)
+	_, err = CreatePost(pseudo, id_user, content_post)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	log.Printf("Post added: content=%s, userID=%d, pseudo=%s\n", content, userID, pseudo)
-
-	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte("Post added successfully"))
 }
-
-
-
-
-
-
-
