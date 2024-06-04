@@ -6,13 +6,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"net/url"
 	"text/template"
 
 	"golang.org/x/crypto/bcrypt"
 
 	_ "github.com/mattn/go-sqlite3"
 )
+
+var globalUserID int
+var globalPseudo string
 
 func Connexion(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
@@ -30,7 +32,7 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 		log.Println("Email: ", email)
 		log.Println("Password: ", password)
 
-		authenticated, err := Authenticate(email, password)
+		userID, pseudo, err := AuthenticateAndGetUserID(email, password)
 		if err != nil {
 			if errors.Is(err, errors.New("invalid email or password")) {
 				http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
@@ -39,46 +41,44 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 
-		if authenticated {
+		if userID != 0 {
+			globalUserID = userID
+			globalPseudo = pseudo
 			log.Println("Connexion réussie")
-			http.Redirect(w, r, "http://localhost:8080/user?email="+url.QueryEscape(email), http.StatusSeeOther)
+			http.Redirect(w, r, "/post", http.StatusSeeOther)
 		} else {
 			http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
 		}
 	}
 }
 
-func Authenticate(email string, password string) (bool, error) {
+func AuthenticateAndGetUserID(email string, password string) (int, string, error) {
 	_, db := Open()
 	if db == nil {
-		return false, fmt.Errorf("erreur d'ouverture de la base de données")
+		return 0, "", fmt.Errorf("erreur d'ouverture de la base de données")
 	}
+	defer db.Close()
 
 	var dbPassword string
-	err := db.QueryRow("SELECT password FROM Utilisateurs WHERE email = ?", email).Scan(&dbPassword)
+	var userID int
+	var pseudo string
+	err := db.QueryRow("SELECT id_user, password, pseudo FROM Utilisateurs WHERE email = ?", email).Scan(&userID, &dbPassword, &pseudo)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return false, nil
+			return 0, "", errors.New("invalid email or password")
 		}
-		return false, err
+		return 0, "", err
 	}
-
-	log.Println("Email from DB: ", email)
-	log.Println("Password from DB: ", dbPassword)
 
 	err = VerifyHash(dbPassword, password)
 	if err != nil {
-		return false, err
+		return 0, "", err
 	}
 
-	_, _, _, err = GetUser(email)
-	if err != nil {
-		return false, err
-	}
-
-	return true, nil
+	return userID, pseudo, nil
 }
 
 func VerifyHash(hashedPassword, password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
+
