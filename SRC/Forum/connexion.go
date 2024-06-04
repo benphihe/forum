@@ -6,13 +6,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"net/url"
 	"text/template"
 
 	"golang.org/x/crypto/bcrypt"
 
 	_ "github.com/mattn/go-sqlite3"
 )
+
+var globalUserID int
+var globalPseudo string
 
 func Connexion(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
@@ -39,7 +41,9 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 
-		if authenticated {
+		if userID != 0 {
+			globalUserID = userID
+			globalPseudo = pseudo
 			log.Println("Connexion réussie")
 			log.Println("UUID: ", uuid)
 			http.Redirect(w, r, "http://localhost:8080/user?email="+url.QueryEscape(email), http.StatusSeeOther)
@@ -55,6 +59,7 @@ func Authenticate(email string, password string) (bool, string, error) {
 	if db == nil {
 		return false, "", fmt.Errorf("erreur d'ouverture de la base de données")
 	}
+	defer db.Close()
 
 	var dbPassword string
 	var uuid string

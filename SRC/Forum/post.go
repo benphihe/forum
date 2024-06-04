@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
 	"text/template"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -44,17 +43,10 @@ func AddPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	content := r.Form.Get("content_post")
-	userIDStr := r.URL.Query().Get("user_id")
-	pseudo := r.URL.Query().Get("pseudo")
+	userID := globalUserID
+	pseudo := globalPseudo
 
-	log.Printf("Received form data: content=%s, userIDStr=%s, pseudo=%s\n", content, userIDStr, pseudo)
-
-	userID, err := strconv.Atoi(userIDStr)
-	if err != nil {
-		http.Error(w, "Invalid user ID", http.StatusBadRequest)
-		log.Printf("Invalid user ID: %s\n", userIDStr)
-		return
-	}
+	log.Printf("Received form data: content=%s, userID=%d, pseudo=%s\n", content, userID, pseudo)
 
 	statusCode, db := Open()
 	if statusCode != 0 {
@@ -74,6 +66,7 @@ func AddPost(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte("Post added successfully"))
 }
+
 
 
 
