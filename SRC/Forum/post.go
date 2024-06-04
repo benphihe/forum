@@ -17,7 +17,7 @@ func CreatePost(db *sql.DB, content string, userID int, pseudo string) error {
 	_, err := db.Exec("INSERT INTO Post (content_post, id_user, pseudo) VALUES (?, ?, ?)", content, userID, pseudo)
 	if err != nil {
 		log.Printf("Error inserting post: %s\n", err)
-		return fmt.Errorf("Error inserting post: %w", err)
+		return fmt.Errorf("error inserting post: %w", err)
 	}
 
 	log.Printf("Post added successfully!\n")

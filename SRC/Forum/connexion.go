@@ -30,7 +30,7 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 		log.Println("Email: ", email)
 		log.Println("Password: ", password)
 
-		authenticated, err := Authenticate(email, password)
+		authenticated, uuid, err := Authenticate(email, password)
 		if err != nil {
 			if errors.Is(err, errors.New("invalid email or password")) {
 				http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
@@ -41,6 +41,7 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 
 		if authenticated {
 			log.Println("Connexion réussie")
+			log.Println("UUID: ", uuid)
 			http.Redirect(w, r, "http://localhost:8080/user?email="+url.QueryEscape(email), http.StatusSeeOther)
 		} else {
 			http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
@@ -48,37 +49,43 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Authenticate(email string, password string) (bool, error) {
+
+func Authenticate(email string, password string) (bool, string, error) {
 	_, db := Open()
 	if db == nil {
-		return false, fmt.Errorf("erreur d'ouverture de la base de données")
+		return false, "", fmt.Errorf("erreur d'ouverture de la base de données")
 	}
 
 	var dbPassword string
-	err := db.QueryRow("SELECT password FROM Utilisateurs WHERE email = ?", email).Scan(&dbPassword)
+	var uuid string
+	err := db.QueryRow("SELECT password, uuid FROM Utilisateurs WHERE email = ?", email).Scan(&dbPassword, &uuid)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return false, nil
+			return false, "", nil
 		}
-		return false, err
+		return false, "", err
 	}
 
 	log.Println("Email from DB: ", email)
 	log.Println("Password from DB: ", dbPassword)
+	log.Println("UUID from DB: ", uuid)
 
 	err = VerifyHash(dbPassword, password)
 	if err != nil {
-		return false, err
+		return false, "", err
 	}
 
 	_, _, _, err = GetUser(email)
 	if err != nil {
-		return false, err
+		return false, "", err
 	}
 
-	return true, nil
+	return true, uuid, nil
 }
 
 func VerifyHash(hashedPassword, password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
+
+
+
