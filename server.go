@@ -2,10 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"test/SRC/Forum"
-	"text/template"
 )
 
 func main() {
@@ -13,7 +11,7 @@ func main() {
 	http.Handle("/STATIC/", http.StripPrefix("/STATIC/", fs))
 
 	Forum.Open()
-	http.HandleFunc("/", HomeHandler)
+	http.HandleFunc("/", Forum.DisplayPosts)
 	http.HandleFunc("/user", Forum.UserHandler)
 	http.HandleFunc("/comment", Forum.AddComment)
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
@@ -24,14 +22,4 @@ func main() {
 
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("Server Start in localhost:8080")
-}
-
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("STATIC/HTML/Accueil.html")
-	if err != nil {
-		log.Fatalf("Template execution: %s", err)
-		return
-	}
-	t.Execute(w, nil)
-
 }

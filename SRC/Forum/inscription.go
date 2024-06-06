@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"text/template"
 
+	"github.com/google/uuid"
+
 	"golang.org/x/crypto/bcrypt"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -37,22 +39,26 @@ func InscriptionPage(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		CreateUser(pseudo, hashedPassword, email)
+		CreateUser(pseudo, hashedPassword, email, GenerateUUID())
 		http.Redirect(w, r, "/connexion", http.StatusSeeOther)
 	}
 }
 
-func CreateUser(pseudo string, password string, email string) error {
+func GenerateUUID() string {
+	return uuid.New().String()
+}
+
+func CreateUser(pseudo string, password string, email string, uuid string) error {
 	_, db = Open()
 	if db == nil {
 		return fmt.Errorf("erreur d'ouverture de la base de données")
 	}
-	log.Printf("CreateUser a reçu : pseudo=%s, password=%s, email=%s\n", pseudo, password, email)
-	_, err := db.Exec("insert into Utilisateurs (pseudo, password, email) values (?, ?, ?)", pseudo, password, email)
+	log.Printf("CreateUser a reçu : pseudo=%s, password=%s, email=%s, uuid=%s\n", pseudo, password, email, uuid)
+	_, err := db.Exec("insert into Utilisateurs (pseudo, password, email, uuid) values (?, ?, ?, ?)", pseudo, password, email, uuid)
 	if err != nil {
 		log.Printf("erreur lors de l'insertion des données : %s\n", err)
 	} else {
-		log.Printf("Send envoie : pseudo=%s, password=%s, email=%s\n", pseudo, password, email)
+		log.Printf("Send envoie : pseudo=%s, password=%s, email=%s, uuid=%s\n", pseudo, password, email, uuid)
 	}
 	return err
 }
@@ -64,5 +70,3 @@ func Hash(password string) (string, error) {
 	}
 	return string(hash), nil
 }
-
-

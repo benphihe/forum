@@ -81,4 +81,3 @@ func AuthenticateAndGetUserID(email string, password string) (int, string, error
 func VerifyHash(hashedPassword, password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
-

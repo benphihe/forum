@@ -1,12 +1,11 @@
 package Forum
 
 import (
-	//"database/sql"
 	"fmt"
+	"html/template"
 	"log"
 	"strconv"
 	"net/http"
-	"text/template"
 
 	_ "github.com/mattn/go-sqlite3"
 )

@@ -2,53 +2,7 @@ body {
   background-image: url(/images/image-3.png);
   margin:0;
 }
-.page-acceuil{
-  display: grid;
-  grid-template-areas:
-    "head head . . ."
-    "nav  tweet1  tweet2 tweet3 tweet4"
-    "nav  messages1 messages2 . ."
-    "nav  messages3 messages4 . .";
-  grid-template-rows: 115px 170px 1fr 1fr ;
-  grid-template-columns: 120px 1fr 1fr 1fr 1fr ;
-}
-.messages1{
-  grid-area: messages1;
-  background-color: #45a049;
-  height: 80%;
-  width: 90%;
-  margin-top: 5%;
-  margin-left: 5%;
-  grid-column: 2/span 2;
 
-}
-.messages2{
-  grid-area: messages2;
-  background-color:#FA25CB;
-  height: 80%;
-  width: 90%;
-  margin-top: 5%;
-  margin-left: 5%;
-  grid-column: 4/span 2;
-}
-.messages3{
-  grid-area: messages4;
-  background-color: #FA25CB;
-  height: 80%;
-  width: 90%;
-  margin-top: 5%;
-  margin-left: 5%;
-  grid-column: 2/span 2;
-}
-.messages4{
-  grid-area: messages3;
-  background-color:#45a049;
-  height: 80%;
-  width: 90%;
-  margin-top: 5%;
-  margin-left: 5%;
-  grid-column: 4/span 2;
-}
 
 .tweet1{
   grid-area: tweet1;
@@ -91,7 +45,6 @@ body {
     flex-shrink: 0;
     }
   
-  /* Retirer les pastilles avant les items des listes */
   ul {
     list-style: none;
   }
@@ -314,7 +267,6 @@ body {
   text-align: center;
 }
 
-/* Style the registration form container */
 .button-inscription {
   width: 300px;
   height: fit-content;
@@ -329,7 +281,6 @@ body {
   justify-content: center;
 }
 
-/* Style the registration form inputs */
 .button-inscription input[type="text"],
 .button-inscription input[type="email"] {
   width: 100%;
@@ -348,7 +299,6 @@ body {
   box-shadow: 0px 0px 3px rgba(0,0,0,0.1);
 }
 
-/* Style the registration form submit button */
 .button-inscription button {
   width: 100%;
   padding: 10px;
@@ -373,4 +323,52 @@ body {
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
+}
+
+.post-item:nth-child(4n+1) {
+    background-color: #45a049;
+}
+
+.post-item:nth-child(4n+2) {
+    background-color: #FA25CB;
+}
+
+.post-item:nth-child(4n+3) {
+    background-color: #FA25CB;
+}
+
+.post-item:nth-child(4n+4) {
+    background-color: #45a049;
+}
+
+
+.posts-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: -55%; 
+  margin-left: 20px; 
+  margin-left: 9%;
+}
+
+.post-item {
+    position: relative;
+    flex: 1 0 48%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    margin-right: 2%;
+    padding: 60px;
+    border-radius: 20px;
+}
+
+.post-item:before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, rgba(236, 253, 24, 0.87), #000000);
+    border-radius: 20px;
+    z-index: -1;
 }
