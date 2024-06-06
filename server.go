@@ -13,7 +13,7 @@ func main() {
 	Forum.Open()
 	http.HandleFunc("/", Forum.DisplayPosts)
 	http.HandleFunc("/user", Forum.UserHandler)
-	http.HandleFunc("/comment", Forum.AddMessage)
+	http.HandleFunc("/comment", Forum.AddComment)
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
 	http.HandleFunc("/post", Forum.AddPost)
 	http.HandleFunc("/tweet", Forum.AddTweet)
