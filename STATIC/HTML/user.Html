@@ -42,11 +42,17 @@
             users
         </h2>
       <section class="users">
+        <div class="profile-picture">
+          <img src="votre_photo_de_profil.jpg" alt="Photo de profil">
+        </div>
         <h1>Bonjour, {{.pseudo}}</h1><br /> 
         <p>Votre ID est : {{.id_user}}</p><br /> 
         <p>Votre email est : {{.Email}}</p><br /> 
-        <button class="bottone1" onclick="window.location.href='/post'"><strong>tu veux ajouter un commentaire ?</strong></button>
-        </section>
+        <section class="button-users">
+        <button class="bottone1" onclick="window.location.href='post.html'"><strong>tu veux ajouter un commentaire ?</strong></button>
+        <button class="bottone1" onclick="window.location.href='drag-and-drop-profiles-pictures.html'"><strong>tu veux ajouter ou modier ta photo de profil ?</strong></button>
+      </section>
+      </section>
       </section>
     <script rel="stylesheet" href="/STATIC/script.js"></script>
 </body>
