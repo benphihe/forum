@@ -21,6 +21,7 @@ func main() {
 	http.HandleFunc("/tweet", Forum.AddTweet)
 	http.HandleFunc("/comment_tweet", Forum.CommentTweet)
 	http.HandleFunc("/connexion", Forum.Connexion)
+	http.HandleFunc("/posts", Forum.DisplayPosts)
 
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("Server Start in localhost:8080")

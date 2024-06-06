@@ -1,12 +1,10 @@
 package Forum
 
 import (
-	//"database/sql"
 	"fmt"
+	"html/template"
 	"log"
-
 	"net/http"
-	"text/template"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -71,3 +69,5 @@ func AddPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+
