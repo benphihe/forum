@@ -4,7 +4,7 @@ import (
 	//"database/sql"
 	"fmt"
 	"log"
-
+	"strconv"
 	"net/http"
 	"text/template"
 
@@ -31,6 +31,22 @@ func CreatePost(pseudo string, id_user int, content_post string) (int, error) {
 		log.Printf("Post créé avec succès : pseudo=%s, id_user=%d, content_post=%s, id_post=%d\n", pseudo, id_user, content_post, id)
 		return int(id), nil
 	}
+}
+
+func AddLike(postID int) error {
+	_, err := db.Exec("UPDATE Post SET LikeCount = LikeCount + 1 WHERE ID = ?", postID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func RemoveLike(postID int) error {
+	_, err := db.Exec("UPDATE Post SET LikeCount = LikeCount - 1 WHERE ID = ?", postID)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func AddPost(w http.ResponseWriter, r *http.Request) {
@@ -70,4 +86,25 @@ func AddPost(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	action := r.Form.Get("action")
+	if action == "like" {
+		postIDStr := r.Form.Get("post_id")
+		postID, err := strconv.Atoi(postIDStr)
+		if err != nil {
+			http.Error(w, "Invalid post ID", http.StatusBadRequest)
+			log.Printf("Invalid post ID: %s\n", postIDStr)
+			return
+		}
+
+		err = AddLike(postID)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		http.Redirect(w, r, fmt.Sprintf("/post/%d", postID), http.StatusSeeOther)
+		return
+	}
 }
+
