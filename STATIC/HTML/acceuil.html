@@ -39,16 +39,17 @@
   <section class="tweet3"></section>
   <section class="tweet4"></section>
   <div class="posts-container">
-    {{range $key, $value := .}}
-      <div class="post-item">
-          <h2>Post {{ $key }}</h2>
-          <p>ID du post : {{ $value.id_post }}</p>
-          <p>ID de l'utilisateur : {{ $value.id_user }}</p>
-          <p>Pseudo : {{ $value.pseudo }}</p>
-          <p>Contenu du post : {{ $value.content_post }}</p>
-      </div>
-    {{end}}
-  </div>
-  <script rel="stylesheet" href="/STATIC/script.js"></script>
-</body>
+      {{range $key, $value := .}}
+        <div class="post-item">
+            <h2>Post {{ $key }}</h2>
+            <p>ID du post : {{ $value.id_post }}</p>
+            <p>ID de l'utilisateur : {{ $value.id_user }}</p>
+            <p>Pseudo : {{ $value.pseudo }}</p>
+            <p>Contenu du post : {{ $value.content_post }}</p>
+            <a href="/post/{{ $value.id_post }}" class="view-post-button">Voir le post</a>
+         </div>
+      {{end}}
+    </div>
+    <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
+  </body>
 </html>
