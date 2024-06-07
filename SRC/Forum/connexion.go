@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"text/template"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -45,6 +46,17 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 			globalUserID = userID
 			globalPseudo = pseudo
 			log.Println("Connexion réussie")
+
+			// Crée un cookie de session
+			expiration := time.Now().Add(24 * time.Hour)
+			cookie := http.Cookie{
+				Name:    "session_token",
+				Value:   fmt.Sprintf("%d", userID),
+				Expires: expiration,
+				Path:    "/",
+			}
+			http.SetCookie(w, &cookie)
+
 			http.Redirect(w, r, "/post", http.StatusSeeOther)
 		} else {
 			http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
@@ -81,3 +93,6 @@ func AuthenticateAndGetUserID(email string, password string) (int, string, error
 func VerifyHash(hashedPassword, password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
+
+
+

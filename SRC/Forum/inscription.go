@@ -39,7 +39,12 @@ func InscriptionPage(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		CreateUser(pseudo, hashedPassword, email, GenerateUUID())
+		err = CreateUser(pseudo, hashedPassword, email, GenerateUUID())
+		if err != nil {
+			http.Error(w, "Erreur lors de la création de l'utilisateur", http.StatusInternalServerError)
+			return
+		}
+
 		http.Redirect(w, r, "/connexion", http.StatusSeeOther)
 	}
 }
@@ -49,7 +54,7 @@ func GenerateUUID() string {
 }
 
 func CreateUser(pseudo string, password string, email string, uuid string) error {
-	_, db = Open()
+	_, db := Open()
 	if db == nil {
 		return fmt.Errorf("erreur d'ouverture de la base de données")
 	}
@@ -70,3 +75,5 @@ func Hash(password string) (string, error) {
 	}
 	return string(hash), nil
 }
+
+
