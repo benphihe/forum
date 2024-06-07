@@ -28,7 +28,7 @@ func CreatePost(pseudo string, id_user int, content_post string) (int, error) {
 			return 0, err
 		}
 		log.Printf("Post créé avec succès : pseudo=%s, id_user=%d, content_post=%s, id_post=%d\n", pseudo, id_user, content_post, id)
-		return int(id), nil
+		return int(id), nil 
 	}
 }
 
