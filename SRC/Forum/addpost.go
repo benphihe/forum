@@ -36,7 +36,7 @@ func CreatePost(pseudo string, id_user int, content_post string, id_category int
 func AddPost(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		t, err := template.ParseFiles("STATIC/HTML/postsolo.html")
+		t, err := template.ParseFiles("STATIC/HTML/post.html")
 		if err != nil {
 			log.Printf("Template execution: %s", err)
 			http.Error(w, "Error executing template", http.StatusInternalServerError)

@@ -49,7 +49,6 @@ func GetPosts() ([]map[string]interface{}, error) {
 }
 
 
-
 func DisplayPostsFromDatabase(w http.ResponseWriter, r *http.Request) {
 	posts, err := GetPosts()
 	if err != nil {
