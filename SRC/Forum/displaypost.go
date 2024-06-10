@@ -44,7 +44,7 @@ func GetPosts() ([]map[string]string, error) {
 	return posts, nil
 }
 
-func DisplayPosts(w http.ResponseWriter, r *http.Request) {
+func DisplayPostsFrombdd(w http.ResponseWriter, r *http.Request) {
 	posts, err := GetPosts()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

@@ -11,12 +11,12 @@ func main() {
 	http.Handle("/STATIC/", http.StripPrefix("/STATIC/", fs))
 
 	Forum.Open()
-	http.HandleFunc("/", Forum.DisplayPosts)
-	http.HandleFunc("/user", Forum.UserHandler)
-	http.HandleFunc("/post/", PostHandler)
+	http.HandleFunc("/", AuthMiddleware(Forum.DisplayPostsFrombdd))
+	http.HandleFunc("/user", AuthMiddleware(Forum.UserHandler))
+	http.HandleFunc("/post/", AuthMiddleware(Forum.HandleRequest))
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
 	http.HandleFunc("/connexion", Forum.Connexion)
-	http.HandleFunc("/cookies", Forum.SignOutHandler)
+	http.HandleFunc("/addpost", AuthMiddleware(Forum.AddPost))
 
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("Server Start in localhost:8080")
@@ -29,5 +29,23 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		Forum.AddComment(w, r)
 	} else {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+	}
+}
+
+func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		cookie, err := r.Cookie("session_token")
+		if err != nil {
+			http.Redirect(w, r, "/inscription", http.StatusSeeOther)
+			return
+		}
+
+		isValid, err := Forum.IsUUIDInDB(cookie.Value)
+		if err != nil || !isValid {
+			http.Redirect(w, r, "/inscription", http.StatusSeeOther)
+			return
+		}
+
+		next(w, r)
 	}
 }

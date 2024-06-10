@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"text/template"
+	"time"
 
 	"github.com/google/uuid"
 
@@ -39,11 +40,14 @@ func InscriptionPage(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		err = CreateUser(pseudo, hashedPassword, email, GenerateUUID())
+		uuid := GenerateUUID()
+		err = CreateUser(pseudo, hashedPassword, email, uuid)
 		if err != nil {
 			http.Error(w, "Erreur lors de la création de l'utilisateur", http.StatusInternalServerError)
 			return
 		}
+
+		SetCookie(w, "session_token", uuid)
 
 		http.Redirect(w, r, "/connexion", http.StatusSeeOther)
 	}
@@ -76,4 +80,21 @@ func Hash(password string) (string, error) {
 	return string(hash), nil
 }
 
+func SetCookie(w http.ResponseWriter, name string, value string) {
+	expiration := time.Now().Add(24 * time.Hour)
+	cookie := http.Cookie{
+		Name:    name,
+		Value:   value,
+		Expires: expiration,
+		Path:    "/",
+	}
+	http.SetCookie(w, &cookie)
+}
 
+func GetCookie(r *http.Request, name string) (string, error) {
+	cookie, err := r.Cookie(name)
+	if err != nil {
+		return "", err
+	}
+	return cookie.Value, nil
+}

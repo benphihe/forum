@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"text/template"
-	"time"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -30,31 +29,16 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 		email := r.FormValue("email")
 		password := r.FormValue("password")
 
-		log.Println("Email: ", email)
-		log.Println("Password: ", password)
-
 		userID, pseudo, err := AuthenticateAndGetUserID(email, password)
 		if err != nil {
-			if errors.Is(err, errors.New("invalid email or password")) {
-				http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
-				return
-			}
-			log.Fatal(err)
+			http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
+			return
 		}
 
 		if userID != 0 {
 			globalUserID = userID
 			globalPseudo = pseudo
 			log.Println("Connexion réussie")
-
-			expiration := time.Now().Add(24 * time.Hour)
-			cookie := http.Cookie{
-				Name:    "session_token",
-				Value:   fmt.Sprintf("%d", userID),
-				Expires: expiration,
-				Path:    "/",
-			}
-			http.SetCookie(w, &cookie)
 
 			http.Redirect(w, r, "/post", http.StatusSeeOther)
 		} else {
@@ -81,9 +65,8 @@ func AuthenticateAndGetUserID(email string, password string) (int, string, error
 		return 0, "", err
 	}
 
-	err = VerifyHash(dbPassword, password)
-	if err != nil {
-		return 0, "", err
+	if err = bcrypt.CompareHashAndPassword([]byte(dbPassword), []byte(password)); err != nil {
+		return 0, "", errors.New("invalid email or password")
 	}
 
 	return userID, pseudo, nil
@@ -92,6 +75,3 @@ func AuthenticateAndGetUserID(email string, password string) (int, string, error
 func VerifyHash(hashedPassword, password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
-
-
-
