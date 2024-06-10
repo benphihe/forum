@@ -47,7 +47,6 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 			globalPseudo = pseudo
 			log.Println("Connexion réussie")
 
-			// Crée un cookie de session
 			expiration := time.Now().Add(24 * time.Hour)
 			cookie := http.Cookie{
 				Name:    "session_token",
