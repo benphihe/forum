@@ -48,8 +48,7 @@ func GetPosts() ([]map[string]interface{}, error) {
     return posts, nil
 }
 
-
-func DisplayPostsFromDatabase(w http.ResponseWriter, r *http.Request) {
+func DisplayPostsFrombdd(w http.ResponseWriter, r *http.Request) {
 	posts, err := GetPosts()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

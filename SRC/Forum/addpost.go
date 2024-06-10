@@ -1,12 +1,12 @@
 package Forum
 
 import (
+	"database/sql"
 	"fmt"
 	"html/template"
-	"database/sql"
 	"log"
-	"strconv"
 	"net/http"
+	"strconv"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -29,7 +29,7 @@ func CreatePost(pseudo string, id_user int, content_post string, id_category int
 			return 0, err
 		}
 		log.Printf("Post créé avec succès : pseudo=%s, id_user=%d, content_post=%s, id_category=%d, id_post=%d\n", pseudo, id_user, content_post, id_category, id)
-		return int(id), nil 
+		return int(id), nil
 	}
 }
 
@@ -130,7 +130,7 @@ func DisplayPosts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t, err := template.ParseFiles("STATIC/HTML/acceuil.html")
+	t, err := template.ParseFiles("STATIC/HTML/post.html")
 	if err != nil {
 		log.Printf("Template execution: %s", err)
 		http.Error(w, "Error executing template", http.StatusInternalServerError)
@@ -138,5 +138,3 @@ func DisplayPosts(w http.ResponseWriter, r *http.Request) {
 	}
 	t.Execute(w, posts)
 }
-
-
