@@ -526,15 +526,31 @@ body {
 }
 
 #content_post{
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
   height: 400px;
   width: 800px;
+  
 }
 
 .acceuil-tweet-messages{
   border-radius: 20px;
+}
+
+.categories{
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#content_post_name{
+  left: 20px ;
+  height: 40px;
+  width: 380px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("data:text/plain;charset=utf-8;base64,SGVsbG8gd29ybGQh");
+  background-size: 100% 30px;
+  background-repeat: repeat;
+  padding: 10px;
+  font-size: 16px;
 }
