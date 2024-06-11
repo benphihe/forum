@@ -524,3 +524,17 @@ body {
   border-radius: 20px;
 
 }
+
+#content_post{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  height: 400px;
+  width: 800px;
+}
+
+.acceuil-tweet-messages{
+  border-radius: 20px;
+}
