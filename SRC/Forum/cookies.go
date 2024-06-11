@@ -60,11 +60,11 @@ func IsUUIDInDB(uuid string) (bool, error) {
 }
 
 func HandleRequest(w http.ResponseWriter, r *http.Request) {
-	uuid, err := GetUUIDFromCookie(r)
+	_, err := GetUUIDFromCookie(r)
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("UUID: " + uuid))
 }
+

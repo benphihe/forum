@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"text/template"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -39,6 +40,14 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 			globalUserID = userID
 			globalPseudo = pseudo
 			log.Println("Connexion réussie")
+
+			uuid, err := GetUUIDFromEmail(w, email)
+			if err != nil {
+				log.Printf("Erreur lors de la récupération de l'UUID : %s", err)
+				http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
+				return
+			}
+			log.Printf("UUID pour l'email %s est %s", email, uuid)
 
 			http.Redirect(w, r, "/post", http.StatusSeeOther)
 		} else {
@@ -74,4 +83,42 @@ func AuthenticateAndGetUserID(email string, password string) (int, string, error
 
 func VerifyHash(hashedPassword, password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+}
+
+func GetUUIDFromEmail(w http.ResponseWriter, email string) (string, error) {
+	_, db := Open()
+	if db == nil {
+		return "", fmt.Errorf("erreur d'ouverture de la base de données")
+	}
+	defer db.Close()
+
+	var uuid string
+	err := db.QueryRow("SELECT uuid FROM Utilisateurs WHERE email = ?", email).Scan(&uuid)
+	if err != nil {
+		return "", fmt.Errorf("erreur lors de la récupération de l'UUID : %s", err)
+	}
+
+	cookie, err := CreateCookieWithUUID(uuid)
+	if err != nil {
+		return "", fmt.Errorf("erreur lors de la création du cookie : %s", err)
+	}
+
+	http.SetCookie(w, cookie)
+
+	return uuid, nil
+}
+
+func CreateCookieWithUUID(uuid string) (*http.Cookie, error) {
+	if uuid == "" {
+		return nil, fmt.Errorf("UUID vide")
+	}
+
+	expiration := time.Now().Add(24 * time.Hour)
+	cookie := &http.Cookie{
+		Name:    "session_token",
+		Value:   uuid,
+		Expires: expiration,
+		Path:    "/",
+	}
+	return cookie, nil
 }
