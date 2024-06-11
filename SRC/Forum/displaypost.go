@@ -10,14 +10,42 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func GetPosts() ([]map[string]interface{}, error) {
+func DisplayPostsFrombdd(w http.ResponseWriter, r *http.Request) {
+    id_category := r.URL.Query().Get("category")
+    posts, err := GetPosts(id_category)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    if r.Method == "GET" {
+        w.Header().Set("Content-Type", "text/html; charset=utf-8")
+        t, err := template.ParseFiles("STATIC/HTML/acceuil.html")
+        if err != nil {
+            log.Printf("Template execution: %s", err)
+            http.Error(w, "Error executing template", http.StatusInternalServerError)
+            return
+        }
+        t.Execute(w, posts)
+        return
+    }
+}
+
+func GetPosts(id_category string) ([]map[string]interface{}, error) {
     _, db := Open()
     if db == nil {
         return nil, fmt.Errorf("erreur d'ouverture de la base de données")
     }
     defer db.Close()
 
-    rows, err := db.Query("SELECT id_post, id_user, id_category, pseudo, content_post FROM post")
+    var rows *sql.Rows
+    var err error
+    if id_category == "" {
+        rows, err = db.Query("SELECT id_post, id_user, id_category, pseudo, content_post FROM post")
+    } else {
+        rows, err = db.Query("SELECT id_post, id_user, id_category, pseudo, content_post FROM post WHERE id_category = ?", id_category)
+    }
+
     if err != nil {
         return nil, err
     }
@@ -46,26 +74,6 @@ func GetPosts() ([]map[string]interface{}, error) {
     }
 
     return posts, nil
-}
-
-func DisplayPostsFrombdd(w http.ResponseWriter, r *http.Request) {
-	posts, err := GetPosts()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if r.Method == "GET" {
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		t, err := template.ParseFiles("STATIC/HTML/acceuil.html")
-		if err != nil {
-			log.Printf("Template execution: %s", err)
-			http.Error(w, "Error executing template", http.StatusInternalServerError)
-			return
-		}
-		t.Execute(w, posts)
-		return
-	}
 }
 
 

@@ -12,71 +12,75 @@ import (
 )
 
 func CreatePost(pseudo string, id_user int, content_post string, id_category int) (int, error) {
-	log.Printf("Lancement de CreatePost avec : pseudo=%s, id_user=%d, content_post=%s, id_category=%d\n", pseudo, id_user, content_post, id_category)
+    log.Printf("Lancement de CreatePost avec : pseudo=%s, id_user=%d, content_post=%s, id_category=%d\n", pseudo, id_user, content_post, id_category)
 
-	_, db := Open()
-	if db == nil {
-		return 0, fmt.Errorf("erreur d'ouverture de la base de données")
-	}
-	log.Printf("CreatePost a reçu : pseudo=%s, id_user=%d, content_post=%s, id_category=%d\n", pseudo, id_user, content_post, id_category)
-	result, err := db.Exec("INSERT INTO Post (pseudo, id_user, content_post, id_category) VALUES (?, ?, ?, ?)", pseudo, id_user, content_post, id_category)
-	if err != nil {
-		log.Printf("erreur lors de l'insertion des données : %s\n", err)
-		return 0, err
-	} else {
-		id, err := result.LastInsertId()
-		if err != nil {
-			return 0, err
-		}
-		log.Printf("Post créé avec succès : pseudo=%s, id_user=%d, content_post=%s, id_category=%d, id_post=%d\n", pseudo, id_user, content_post, id_category, id)
-		return int(id), nil
-	}
+    _, db := Open()
+    if db == nil {
+        return 0, fmt.Errorf("erreur d'ouverture de la base de données")
+    }
+    log.Printf("CreatePost a reçu : pseudo=%s, id_user=%d, content_post=%s, id_category=%d\n", pseudo, id_user, content_post, id_category)
+    result, err := db.Exec("INSERT INTO Post (pseudo, id_user, content_post, id_category) VALUES (?, ?, ?, ?)", pseudo, id_user, content_post, id_category)
+    if err != nil {
+        log.Printf("erreur lors de l'insertion des données : %s\n", err)
+        return 0, err
+    } else {
+        id, err := result.LastInsertId()
+        if err != nil {
+            return 0, err
+        }
+        log.Printf("Post créé avec succès : pseudo=%s, id_user=%d, content_post=%s, id_category=%d, id_post=%d\n", pseudo, id_user, content_post, id_category, id)
+        return int(id), nil
+    }
 }
 
 func AddPost(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		t, err := template.ParseFiles("STATIC/HTML/post.html")
-		if err != nil {
-			log.Printf("Template execution: %s", err)
-			http.Error(w, "Error executing template", http.StatusInternalServerError)
-			return
-		}
-		t.Execute(w, nil)
-		return
-	}
+    log.Println("AddPost handler triggered")
 
-	err := r.ParseForm()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
+    if r.Method == "GET" {
+        log.Println("Serving the AddPost HTML form")
+        w.Header().Set("Content-Type", "text/html; charset=utf-8")
+        t, err := template.ParseFiles("STATIC/HTML/post.html")
+        if err != nil {
+            log.Printf("Template execution error: %s", err)
+            http.Error(w, "Error executing template", http.StatusInternalServerError)
+            return
+        }
+        t.Execute(w, nil)
+        return
+    }
 
-	content_post := r.Form.Get("content_post")
-	id_category, err := strconv.Atoi(r.Form.Get("category"))
-	if err != nil {
-		http.Error(w, "Invalid category ID", http.StatusBadRequest)
-		return
-	}
-	id_user := globalUserID
-	pseudo := globalPseudo
+    log.Println("Processing form submission")
+    err := r.ParseForm()
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
 
-	log.Printf("Received form data: content_post=%s, id_user=%d, pseudo=%s, id_category=%d\n", content_post, id_user, pseudo, id_category)
+    content_post := r.Form.Get("content_post")
+    id_category, err := strconv.Atoi(r.Form.Get("category"))
+    if err != nil {
+        http.Error(w, "Invalid category ID", http.StatusBadRequest)
+        return
+    }
+    id_user := globalUserID
+    pseudo := globalPseudo
 
-	statusCode, db := Open()
-	if statusCode != 0 {
-		http.Error(w, "Error connecting to the database", http.StatusInternalServerError)
-		return
-	}
-	defer db.Close()
+    log.Printf("Received form data: content_post=%s, id_user=%d, pseudo=%s, id_category=%d\n", content_post, id_user, pseudo, id_category)
 
-	_, err = CreatePost(pseudo, id_user, content_post, id_category)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+    statusCode, db := Open()
+    if statusCode != 0 {
+        http.Error(w, "Error connecting to the database", http.StatusInternalServerError)
+        return
+    }
+    defer db.Close()
 
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+    _, err = CreatePost(pseudo, id_user, content_post, id_category)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func DisplayPosts(w http.ResponseWriter, r *http.Request) {

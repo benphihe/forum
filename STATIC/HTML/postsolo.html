@@ -8,9 +8,9 @@
 </head>
 <body>
     <h1>{{.Post.id_post}}</h1>
-    <p>{{.Post.id_user}}</p>
-    <p>{{.Post.pseudo}}</p>
-    <p>{{.Post.content_post}}</p>
+    <p>Utilisateur: {{.Post.pseudo}}</p>
+    <p>Contenu: {{.Post.content_post}}</p>
+    <p>Catégorie: {{.Post.category}}</p>
 
     <h2>Commentaires</h2>
     <form id="commentForm" method="post">
@@ -19,8 +19,8 @@
         <input type="submit" value="Ajouter Commentaire">
     </form>
 
-    <h1>Commentaires autre</h1>
-    {{range .}}
+    <h1>Commentaires</h1>
+    {{range .Comments}}
     <div>
         <h2>{{.pseudo}}</h2>
         <p>{{.content_comment}}</p>
@@ -28,4 +28,5 @@
     {{end}}
 </body>
 </html>
+
 
