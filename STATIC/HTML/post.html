@@ -1,24 +1,56 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Post</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+    <title>Page de l'utilisateur</title>
+    <link rel="stylesheet" href="/STATIC/CSS/style1.Css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
-<body>
-    <h1>Ajouter un Post</h1>
-    <form id="postForm" method="post" action="/addpost">
-        <label for="content_post">Contenu du Post:</label><br>
-        <textarea id="content_post" name="content_post" rows="4" cols="50" required></textarea><br>
-        <label for="category">Catégorie:</label><br>
-        <select id="category" name="category" required>
-            <option value="1">#Mylife</option>
-            <option value="2">#Cinema</option>
-            <option value="3">#Sport</option>
-        </select><br>
-        <input type="submit" value="Ajouter Post">
-    </form>
+<body class="page-acceuil" >
+    <div class="header">
+        <a href="/STATIC/HTML/acceuil.html">YBLOG</a>
+      
+        <form class="search-bar" action="/search" method="get">
+            <input type="text" name="q" placeholder="Rechercher sur YBLOG" >
+            </form>
+
+    </div>
+    <div class="menu-box"> 
+      <label for="menu-cb" class="menu-label">
+        <div class="menu-button">
+          <svg viewBox="0 0 32 32" fill="#666">
+            <rect x="0" y="4" rx="3" ry="3" width="32" height="3" />
+            <rect x="0" y="14" rx="3" ry="3" width="32" height="3" />
+            <rect x="0" y="24" rx="3" ry="3" width="32" height="3" />
+          </svg>
+        </div>
+      </label>
+      <input id="menu-cb" type="checkbox" class="menu-cb">
+      <nav class="menu-nav">
+        <ul>
+          <li class="menu-item"><a onclick="window.location.href='user'">account <i class="fa-solid fa-user"></i></a></li>
+          <li class="menu-item"><a onclick="window.location.href='post'">Post <i class="fa-regular fa-comments"></i></a></li>
+          <li class="menu-item"><a onclick="window.location.href='rules'">Rules <i class="fa-solid fa-scale-unbalanced-flip"></i></a></li>
+        </ul>
+      </nav>
+    </div>
+      <section class="users-indication"> 
+        <h2>
+            post
+        </h2>
+      <section class="users">
+        </div>
+        <section class="button-users">
+            <form id="postForm" method="post" action="/post">
+                <label for="content_post">Contenu du Post:</label><br>
+                <textarea id="content_post" name="content_post" rows="4" cols="50" required></textarea><br>
+                <input class="bottone1" type="submit" value="Ajouter Post"></section>
+      </section>
+      </section>
+    <script rel="stylesheet" href="/STATIC/script.js"></script>
 </body>
 </html>
 

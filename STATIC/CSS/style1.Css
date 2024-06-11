@@ -310,7 +310,12 @@ body {
   margin-left: 50px;
   text-align: center;
 }
+.clique{
+  color: rgba(236, 253, 24, 0.87);
+  text-decoration: underline;
 
+}
+/* Style the registration form container */
 .button-inscription {
   width: 300px;
   height: fit-content;
@@ -518,4 +523,18 @@ body {
   grid-column: 2/span 2;
   border-radius: 20px;
 
+}
+
+#content_post{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  height: 400px;
+  width: 800px;
+}
+
+.acceuil-tweet-messages{
+  border-radius: 20px;
 }
