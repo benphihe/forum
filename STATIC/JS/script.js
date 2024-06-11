@@ -11,3 +11,7 @@ navLinks.forEach(link => {
     submenu.style.display = 'none';
   });
 });
+
+document.getElementById('content_post_name').addEventListener('focus', function() {
+  this.value = '';
+});
