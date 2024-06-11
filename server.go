@@ -1,35 +1,35 @@
 package main
 
 import (
-    "fmt"
-    "net/http"
-    "test/SRC/Forum"
+	"fmt"
+	"net/http"
+	"test/SRC/Forum"
 )
 
 func main() {
-    fs := http.FileServer(http.Dir("STATIC"))
-    http.Handle("/STATIC/", http.StripPrefix("/STATIC/", fs))
+	fs := http.FileServer(http.Dir("STATIC"))
+	http.Handle("/STATIC/", http.StripPrefix("/STATIC/", fs))
 
 	Forum.Open()
 	http.HandleFunc("/", AuthMiddleware(Forum.DisplayPostsFrombdd))
 	http.HandleFunc("/user", AuthMiddleware(Forum.UserHandler))
-	http.HandleFunc("/post/", AuthMiddleware(Forum.HandleRequest))
+	http.HandleFunc("/post/", AuthMiddleware(Forum.DisplayPost))
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
 	http.HandleFunc("/connexion", Forum.Connexion)
 	http.HandleFunc("/addpost", AuthMiddleware(Forum.AddPost))
 
-    http.ListenAndServe(":8080", nil)
-    fmt.Println("Server Start in localhost:8080")
+	http.ListenAndServe(":8080", nil)
+	fmt.Println("Server Start in localhost:8080")
 }
 
 func PostHandler(w http.ResponseWriter, r *http.Request) {
-    if r.Method == http.MethodGet {
-        Forum.DisplayPost(w, r)
-    } else if r.Method == http.MethodPost {
-        Forum.AddComment(w, r)
-    } else {
-        http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-    }
+	if r.Method == http.MethodGet {
+		Forum.DisplayPost(w, r)
+	} else if r.Method == http.MethodPost {
+		Forum.AddComment(w, r)
+	} else {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+	}
 }
 
 func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
