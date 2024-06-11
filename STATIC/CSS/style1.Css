@@ -580,7 +580,11 @@ body {
   align-items: center;
   height: 400px;
   width: 800px;
-  
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("data:text/plain;charset=utf-8;base64,SGVsbG8gd29ybGQh");
+  background-size: 100% 30px;
+  background-repeat: repeat;
+  padding: 10px;
+  font-size: 16px;
 }
 
 .acceuil-tweet-messages{
