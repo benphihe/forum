@@ -74,7 +74,7 @@ func IsUUIDInDB(uuid string) (bool, error) {
 }
 
 func HandleRequest(w http.ResponseWriter, r *http.Request) {
-	uuid, err := GetUUIDFromCookie(r)
+	_, err := GetUUIDFromCookie(r)
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
@@ -82,7 +82,5 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("UUID récupéré du cookie avec succès")
 
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("UUID: " + uuid))
-	fmt.Println("Réponse envoyée avec succès")
 }
 
