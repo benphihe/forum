@@ -15,12 +15,10 @@ func main() {
 	http.HandleFunc("/user", AuthMiddleware(Forum.DisplayUserInfo))
 	http.HandleFunc("/user", AuthMiddleware(Forum.UserHandler))
 	http.HandleFunc("/post/", AuthMiddleware(Forum.DisplayPost))
-	http.HandleFunc("/post/", AuthMiddleware(Forum.DisplayPost))
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
 	http.HandleFunc("/connexion", Forum.Connexion)
 	http.HandleFunc("/addpost", AuthMiddleware(Forum.AddPost))
-	http.HandleFunc("/rules", Forum.DisplayRules)
-	http.HandleFunc("/post/", AuthMiddleware(Forum.DisplayPost))
+	http.HandleFunc("/search", AuthMiddleware(Forum.SearchPosts))
 
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("Server Start in localhost:8080")
