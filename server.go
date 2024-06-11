@@ -17,6 +17,7 @@ func main() {
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
 	http.HandleFunc("/connexion", Forum.Connexion)
 	http.HandleFunc("/addpost", AuthMiddleware(Forum.AddPost))
+	http.HandleFunc("/search", AuthMiddleware(Forum.SearchPosts))
 
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("Server Start in localhost:8080")
