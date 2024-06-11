@@ -12,6 +12,18 @@ navLinks.forEach(link => {
   });
 });
 
-document.getElementById('content_post_name').addEventListener('focus', function() {
-  this.value = '';
+document.getElementById('content_post_name').addEventListener('input', function() {
+  if (this.value !== '') {
+    this.value = this.value;
+  } else {
+    this.value = '';
+  }
+});
+
+document.getElementById('content_post').addEventListener('input', function() {
+  if (this.value !== '') {
+    this.value = this.value;
+  } else {
+    this.value = '';
+  }
 });
