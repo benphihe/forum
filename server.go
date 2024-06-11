@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"test/SRC/Forum"
@@ -12,13 +13,13 @@ func main() {
 
 	Forum.Open()
 	http.HandleFunc("/", AuthMiddleware(Forum.DisplayPostsFrombdd))
-	http.HandleFunc("/user", AuthMiddleware(Forum.DisplayUserInfo))
 	http.HandleFunc("/user", AuthMiddleware(Forum.UserHandler))
 	http.HandleFunc("/post/", AuthMiddleware(Forum.DisplayPost))
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
 	http.HandleFunc("/connexion", Forum.Connexion)
 	http.HandleFunc("/addpost", AuthMiddleware(Forum.AddPost))
 	http.HandleFunc("/search", AuthMiddleware(Forum.SearchPosts))
+	http.HandleFunc("/rules", Forum.DisplayRules)
 
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("Server Start in localhost:8080")
