@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Commentaire</title>
+    <title>Post et Commentaires</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-    <h1>Ajouter un Commentaire</h1>
+    <h1>{{.Post.id_post}}</h1>
+    <p>Utilisateur: {{.Post.pseudo}}</p>
+    <p>Contenu: {{.Post.content_post}}</p>
+    <p>Catégorie: {{.Post.category}}</p>
+
+    <h2>Commentaires</h2>
     <form id="commentForm" method="post">
         <label for="content">Commentaire:</label><br>
         <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
         <input type="submit" value="Ajouter Commentaire">
     </form>
+
+    <h1>Commentaires</h1>
+    {{range .Comments}}
+    <div>
+        <h2>{{.pseudo}}</h2>
+        <p>{{.content_comment}}</p>
+    </div>
+    {{end}}
 </body>
 </html>
-
-
 
 

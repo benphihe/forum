@@ -2,10 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"test/SRC/Forum"
-	"text/template"
 )
 
 func main() {
@@ -13,25 +11,42 @@ func main() {
 	http.Handle("/STATIC/", http.StripPrefix("/STATIC/", fs))
 
 	Forum.Open()
-	http.HandleFunc("/", HomeHandler)
-	http.HandleFunc("/user", Forum.UserHandler)
-	http.HandleFunc("/comment", Forum.AddMessage)
+	http.HandleFunc("/", AuthMiddleware(Forum.DisplayPostsFrombdd))
+	http.HandleFunc("/user", AuthMiddleware(Forum.UserHandler))
+	http.HandleFunc("/post/", AuthMiddleware(Forum.DisplayPost))
 	http.HandleFunc("/inscription", Forum.InscriptionPage)
-	http.HandleFunc("/post", Forum.AddPost)
-	http.HandleFunc("/tweet", Forum.AddTweet)
-	http.HandleFunc("/comment_tweet", Forum.CommentTweet)
 	http.HandleFunc("/connexion", Forum.Connexion)
+	http.HandleFunc("/addpost", AuthMiddleware(Forum.AddPost))
+	http.HandleFunc("/search", AuthMiddleware(Forum.SearchPosts))
 
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("Server Start in localhost:8080")
 }
 
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("STATIC/HTML/acceuil.html")
-	if err != nil {
-		log.Fatalf("Template execution: %s", err)
-		return
+func PostHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		Forum.DisplayPost(w, r)
+	} else if r.Method == http.MethodPost {
+		Forum.AddComment(w, r)
+	} else {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 	}
-	t.Execute(w, nil)
+}
 
+func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		cookie, err := r.Cookie("session_token")
+		if err != nil {
+			http.Redirect(w, r, "/inscription", http.StatusSeeOther)
+			return
+		}
+
+		isValid, err := Forum.IsUUIDInDB(cookie.Value)
+		if err != nil || !isValid {
+			http.Redirect(w, r, "/inscription", http.StatusSeeOther)
+			return
+		}
+
+		next(w, r)
+	}
 }

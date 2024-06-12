@@ -2,7 +2,7 @@ package Forum
 
 import (
 	"database/sql"
-	"fmt"  
+	"fmt"
 )
 
 var db *sql.DB
@@ -16,5 +16,3 @@ func Open() (int, *sql.DB) {
 	}
 	return 0, db
 }
-
-
