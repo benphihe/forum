@@ -1,32 +1,66 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post et Commentaires</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+  <title>acceuil</title>
+  <link rel="stylesheet" type="text/css" href="/STATIC/CSS/postsolo.css">  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-<body>
-    <h1>{{.Post.id_post}}</h1>
-    <p>Utilisateur: {{.Post.pseudo}}</p>
-    <p>Contenu: {{.Post.content_post}}</p>
-    <p>Catégorie: {{.Post.category}}</p>
-
-    <h2>Commentaires</h2>
-    <form id="commentForm" method="post">
-        <label for="content">Commentaire:</label><br>
-        <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
-        <input type="submit" value="Ajouter Commentaire">
+<body class="page-acceuil" >
+  <div class="header">
+    <a onclick="window.location.href='/'">YBLOG</a>
+    <form class="search-bar" action="/search" method="get">
+      <input type="text" name="q" placeholder="Rechercher sur YBLOG" >
     </form>
+  </div>
+  <div class="menu-box"> 
+    <label for="menu-cb" class="menu-label">
+      <div class="menu-button">
+        <svg viewBox="0 0 32 32" fill="#666">
+          <rect x="0" y="4" rx="3" ry="3" width="32" height="3" />
+          <rect x="0" y="14" rx="3" ry="3" width="32" height="3" />
+          <rect x="0" y="24" rx="3" ry="3" width="32" height="3" />
+        </svg>
+      </div>
+    </label>
+    <input id="menu-cb" type="checkbox" class="menu-cb">
+    <nav class="menu-nav">
+      <ul>
+        <li class="menu-item"><a onclick="window.location.href='inscription'">account <i class="fa-solid fa-user"></i></a></li>
+        <li class="menu-item"><a onclick="window.location.href='addpost'">Post <i class="fa-regular fa-comments"></i></a></li>
+        <li class="menu-item"><a onclick="window.location.href='rules'">Rules <i class="fa-solid fa-scale-unbalanced-flip"></i></a></li>
+      </ul>
+    </nav>
 
-    <h1>Commentaires</h1>
-    {{range .Comments}}
-    <div>
-        <h2>{{.pseudo}}</h2>
-        <p>{{.content_comment}}</p>
+    <body>
+        <div class="content-wrapper">
+        <h1>{{.Post.id_post}}</h1>
+        <p>Utilisateur: {{.Post.pseudo}}</p>
+        <p>Contenu: {{.Post.content_post}}</p>
+        <p>Catégorie: {{.Post.category}}</p>
+    
+        <h2>Commentaires</h2>
+        <form id="commentForm" method="post">
+            <label for="content">Commentaire:</label><br>
+            <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
+            <input type="submit" value="Ajouter Commentaire">
+        </form>
+    
+        <h1>Commentaires</h1>
+        {{range .Comments}}
+        <div>
+            <h2>{{.pseudo}}</h2>
+            <p>{{.content_comment}}</p>
+        </div>
+        {{end}}
     </div>
-    {{end}}
-</body>
+    </body>
+
+    <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
+  </body>
 </html>
+
 
 
