@@ -12,16 +12,16 @@
   <div class="header">
     <a onclick="window.location.href='acceuil'">YBLOG</a>
     <form class="search-bar" action="/search" method="get">
-      <input type="text" name="q" placeholder="Rechercher sur YBLOG" >
+      <input type="text" name="q" placeholder="Rechercher sur YBLOG">
     </form>
   </div>
   <div class="menu-box"> 
     <label for="menu-cb" class="menu-label">
       <div class="menu-button">
         <svg viewBox="0 0 32 32" fill="#666">
-          <rect x="0" y="4" rx="3" ry="3" width="32" height="3" />
-          <rect x="0" y="14" rx="3" ry="3" width="32" height="3" />
-          <rect x="0" y="24" rx="3" ry="3" width="32" height="3" />
+          <rect x="0" y="4" rx="3" ry="3" width="32" height="3"></rect>
+          <rect x="0" y="14" rx="3" ry="3" width="32" height="3"></rect>
+          <rect x="0" y="24" rx="3" ry="3" width="32" height="3"></rect>
         </svg>
       </div>
     </label>
@@ -39,29 +39,26 @@
   <section class="tweet3"></section>
   <section class="tweet4"></section>
   <div class="posts-container">
-      {{range $key, $value := .}}
-        <div class="post-item">
-            <h2>Post {{ $key }}</h2>
-            <p>ID du post : {{ $value.id_post }}</p>
-            <p>ID de l'utilisateur : {{ $value.id_user }}</p>
-            <p>Pseudo : {{ $value.pseudo }}</p>
-            <p>Contenu du post : {{ $value.content_post }}</p>
-            <p>Catégorie : 
-              {{ if eq $value.id_category 1 }}
-                #Mylife
-              {{ else if eq $value.id_category 2 }}
-                #Cinema
-              {{ else if eq $value.id_category 3 }}
-                #Sport
-              {{ else }}
-                Unknown
-              {{ end }}
-            </p>
-            <a href="/post/{{ $value.id_post }}" class="view-post-button">Voir le post</a>
-         </div>
-      {{end}}
+    {{range $key, $value := .}}
+    <div class="post-item">
+        <h2>Post {{ $key }}</h2>
+        <p>Pseudo : {{ $value.pseudo }}</p>
+        <p>Contenu du post : {{ $value.content_post }}</p>
+        <p>Catégorie : {{ $value.category_name }}</p>
+        {{if $value.is_owner}}
+        <form method="post" action="/deletepost">
+            <input type="hidden" name="id_post" value="{{ $value.id_post }}">
+            <button type="submit">Supprimer</button>
+        </form>
+        {{end}}
+        <a href="/post/{{ $value.id_post }}" class="view-post-button">Voir le post</a>
     </div>
-    <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
-  </body>
+    {{end}}
+</div>
+
+  <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
+</body>
 </html>
+
+
 

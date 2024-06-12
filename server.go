@@ -18,6 +18,7 @@ func main() {
 	http.HandleFunc("/connexion", Forum.Connexion)
 	http.HandleFunc("/addpost", AuthMiddleware(Forum.AddPost))
 	http.HandleFunc("/search", AuthMiddleware(Forum.SearchPosts))
+	http.HandleFunc("/deletepost", AuthMiddleware(Forum.DeletePost))
 
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("Server Start in localhost:8080")
