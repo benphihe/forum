@@ -1,11 +1,12 @@
 package Forum
 
 import (
+	"database/sql"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
-	"database/sql"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -33,25 +34,25 @@ func GetUserIDFromSession(r *http.Request) string {
 }
 
 func DisplayPostsFrombdd(w http.ResponseWriter, r *http.Request) {
-    id_category := r.URL.Query().Get("category")
-    userID := GetUserIDFromSession(r)
-    posts, err := GetPosts(userID, id_category)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+	id_category := r.URL.Query().Get("category")
+	userID := GetUserIDFromSession(r)
+	posts, err := GetPosts(userID, id_category)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
-    if r.Method == "GET" {
-        w.Header().Set("Content-Type", "text/html; charset=utf-8")
-        t, err := template.ParseFiles("STATIC/HTML/acceuil.html")
-        if err != nil {
-            log.Printf("Template execution: %s", err)
-            http.Error(w, "Error executing template", http.StatusInternalServerError)
-            return
-        }
-        t.Execute(w, posts)
-        return
-    }
+	if r.Method == "GET" {
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		t, err := template.ParseFiles("STATIC/HTML/acceuil.html")
+		if err != nil {
+			log.Printf("Template execution: %s", err)
+			http.Error(w, "Error executing template", http.StatusInternalServerError)
+			return
+		}
+		t.Execute(w, posts)
+		return
+	}
 }
 
 func GetPosts(userID string, id_category string) ([]map[string]interface{}, error) {
@@ -112,47 +113,5 @@ func GetPosts(userID string, id_category string) ([]map[string]interface{}, erro
 
 	return posts, nil
 }
-
-func DeletePost(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		idPost := r.FormValue("id_post")
-		userId := GetUserIDFromSession(r)
-
-		if idPost == "" || userId == "" {
-			http.Error(w, "Invalid post ID or user ID", http.StatusBadRequest)
-			return
-		}
-
-		_, db := Open()
-		defer db.Close()
-
-		var ownerID string
-		err := db.QueryRow("SELECT id_user FROM post WHERE id_post = ?", idPost).Scan(&ownerID)
-		if err != nil {
-			if err == sql.ErrNoRows {
-				http.Error(w, "Post not found", http.StatusNotFound)
-			} else {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
-			return
-		}
-
-		if ownerID != userId {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
-		}
-
-		_, err = db.Exec("DELETE FROM post WHERE id_post = ?", idPost)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-	}
-}
-
-
-
 
 
