@@ -40,8 +40,8 @@
       <div class="profile-picture">
         <img src="votre_photo_de_profil.jpg" alt="Photo de profil">
       </div>
-      <h1>Bonjour, {{.Name}}</h1><br>
-      <p>Votre ID est : {{.ID}}</p><br>
+      <h1>Bonjour, {{.pseudo}}</h1><br>
+      <p>User ID: {{.id_user}}</p>
       <p>Votre email est : {{.Email}}</p><br>
       <section class="button-users">
         <button class="bottone1" onclick="window.location.href='post.html'"><strong>tu veux ajouter un commentaire ?</strong></button>
@@ -49,6 +49,17 @@
       </section>
     </section>
   </section>
+  <div class="postuser">
+  {{ range .Content }}
+  <p id="post-{{ .id_post }}">{{ . }}</p>
+  {{ if .is_owner }}
+  <form method="POST" action="/delete_post">
+    <input type="hidden" name="post_id" value="{{.id_post}}">
+    <input type="submit" value="Supprimer le post">
+  </form>
+  {{ end }}
+  {{ end }}
+  </div>
   <script rel="stylesheet" href="/STATIC/script.js"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@
 </head>
 <body class="page-acceuil" >
     <div class="header">
-        <a href="/STATIC/HTML/acceuil.html">YBLOG</a>
+      <a onclick="window.location.href='/'">YBLOG</a>
       
         <form class="search-bar" action="/search" method="get">
             <input type="text" name="q" placeholder="Rechercher sur YBLOG" >
@@ -38,29 +38,20 @@
         </ul>
       </nav>
     </div>
-      <section class="users-indication"> 
-        <h2>
-            post
-        </h2>
-      <section class="users">
-        </div>
-        <section class="button-users">
-            <form id="postForm" method="post" action="/post">
-                <label for="content_post">Contenu du Post:</label><br>
-                <textarea id="content_post_name" class="content_post" rows="4" cols="50" required>nom de votre post</textarea><br>
-                <textarea id="content_post" name="content_post" rows="4" cols="50" required>ajouter un commentaire</textarea><br>
-                <div class="box">
-                  <select class="categories">
-                    <option value="">Sélectionnez une catégorie</option>
-                      <option value="categorie1-1">Sous-catégorie 1-1</option>
-                      <option value="categorie1-2">Sous-catégorie 1-2</option>
-                      <option value="categorie2-1">Sous-catégorie 2-1</option>
-                      <option value="categorie2-2">Sous-catégorie 2-2</option>
-                  </select>
-                </div>
-                <input class="bottone1" type="submit" value="Ajouter Post"></section>
-      </section>
-      </section>
+      <body>
+        <h1>Ajouter un Post</h1>
+        <form id="postForm" method="post" action="/addpost">
+            <label for="content_post">Contenu du Post:</label><br>
+            <textarea id="content_post" name="content_post" rows="4" cols="50" required></textarea><br>
+            <label for="category">Catégorie:</label><br>
+            <select id="category" name="category" required>
+                <option value="1">#Mylife</option>
+                <option value="2">#Cinema</option>
+                <option value="3">#Sport</option>
+            </select><br>
+            <input type="submit" value="Ajouter Post">
+        </form>
+    </body>
     <script rel="stylesheet" href="/STATIC/script.js"></script>
 </body>
 </html>

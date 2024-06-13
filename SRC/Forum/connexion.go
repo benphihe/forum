@@ -40,7 +40,7 @@ func Connexion(w http.ResponseWriter, r *http.Request) {
 			globalPseudo = pseudo
 			log.Println("Connexion réussie")
 
-			http.Redirect(w, r, "/post", http.StatusSeeOther)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 		} else {
 			http.Error(w, "Identifiants invalides", http.StatusUnauthorized)
 		}
