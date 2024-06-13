@@ -20,6 +20,8 @@ func main() {
 	http.HandleFunc("/search", AuthMiddleware(Forum.SearchPosts))
 	http.HandleFunc("/rules", Forum.DisplayRules)
 	http.HandleFunc("/delete_post", Forum.DeletePost)
+	http.HandleFunc("/addcomment", AuthMiddleware(Forum.AddComment))
+	http.HandleFunc("/like", AuthMiddleware(Forum.HandleLike))
 
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("Server Start in localhost:8080")
