@@ -19,6 +19,7 @@ func main() {
 	http.HandleFunc("/addpost", AuthMiddleware(Forum.AddPost))
 	http.HandleFunc("/search", AuthMiddleware(Forum.SearchPosts))
 	http.HandleFunc("/rules", Forum.DisplayRules)
+	http.HandleFunc("/addcomment", AuthMiddleware(Forum.AddComment))
 	http.HandleFunc("/deletepost", AuthMiddleware(Forum.DeletePost))
 
 	http.ListenAndServe(":8080", nil)

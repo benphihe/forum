@@ -45,6 +45,7 @@
         <form id="commentForm" method="post">
             <label for="content">Commentaire:</label><br>
             <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
+            <input type="hidden" name="userID" value="1">
             <input type="submit" value="Ajouter Commentaire">
         </form>
     
@@ -57,10 +58,42 @@
         {{end}}
     </div>
     </body>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const commentForms = document.querySelectorAll('#commentForm');
+          
+          commentForms.forEach(form => {
+              form.addEventListener('submit', function(event) {
+                  event.preventDefault();
+                  const formData = new FormData(this);
+                  fetch('/addcomment', {
+                      method: 'POST',
+                      body: formData
+                  })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Erreur lors de l\'ajout du commentaire');
+                      }
+                      return response.text();
+                  })
+                  .then(data => {
+                      console.log('Commentaire ajouté avec succès:', data);
+                      const commentSection = document.querySelector(`#comments-${formData.get('post_id')}`);
+                      commentSection.innerHTML = data;
+                      this.reset();
+                  })
+                  .catch(error => {
+                      console.error('Erreur:', error);
+                  });
+              });
+          });
+      });
+    </script>
 
-    <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
+    <script src="/STATIC/acceuil.js"></script>
   </body>
 </html>
+
 
 
 
