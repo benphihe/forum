@@ -1,5 +1,5 @@
 body {
-  background-image: url(/images/image-3.png);
+  background-image: url(/STATIC/images/image-3.png);
   margin:0;
 }
 
@@ -235,7 +235,7 @@ body {
 
 .background-inscirption-connexion{
   background: linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.14) 63.5%, rgba(0, 0, 0, 0.20) 100%), #FA25CB;
-  background-image: url(/images/image-3.png);
+  background-image: url(/STATIC/images/image-3.png);
   margin:0;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -422,18 +422,12 @@ body {
 }
 .profile-picture {
   
-  width: 150px; /* taille du rond */
-  height: 150px;
-  border-radius: 50%; /* pour faire un cercle */
-  overflow: hidden; /* pour cacher les bords de l'image */
-  border: 2px solid #ccc; /* bordure grise */
-}
+  width: 150px;height: 150px;
+  border-radius: 50%;overflow: hidden; border: 2px solid #ccc; }
 
 .profile-picture img {
-  width: 100%; /* pour que l'image occupe tout l'espace */
-  height: 100%;
-  object-fit: cover; /* pour que l'image soit redimensionnée pour occuper tout l'espace */
-  border-radius: 50%; /* pour que l'image soit également un cercle */
+  width: 100%; height: 100%;
+  object-fit: cover;  border-radius: 50%; 
 }
 
 .users h1{
