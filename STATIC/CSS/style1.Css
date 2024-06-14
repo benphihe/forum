@@ -20,7 +20,7 @@ body {
   margin-top: 5%;
   margin-left: 5%;
   grid-column: 2/span 2;
-
+  border-radius: 20px;
 }
 .messages2{
   grid-area: messages2;
@@ -30,6 +30,7 @@ body {
   margin-top: 5%;
   margin-left: 5%;
   grid-column: 4/span 2;
+  border-radius: 20px;
 }
 .messages3{
   grid-area: messages4;
@@ -39,6 +40,7 @@ body {
   margin-top: 5%;
   margin-left: 5%;
   grid-column: 2/span 2;
+  border-radius: 20px;
 }
 .messages4{
   grid-area: messages3;
@@ -48,39 +50,7 @@ body {
   margin-top: 5%;
   margin-left: 5%;
   grid-column: 4/span 2;
-}
-
-.tweet1{
-  grid-area: tweet1;
-  background-color: #45a049;
-  height: 80%;
-  width: 90%;
-  margin-top: 5%;
-  margin-left: 5%;
-}
-.tweet2{
-  grid-area: tweet2;
-  background-color:#FA25CB;
-  height: 80%;
-  width: 90%;
-  margin-top: 5%;
-  margin-left: 5%;
-}
-.tweet3{
-  grid-area: tweet3;
-  background-color: #45a049;
-  height: 80%;
-  width: 90%;
-  margin-top: 5%;
-  margin-left: 5%;
-}
-.tweet4{
-  grid-area: tweet4;
-  background-color:#FA25CB;
-  height: 80%;
-  width: 90%;
-  margin-top: 5%;
-  margin-left: 5%;
+  border-radius: 20px;
 }
 .rules{
   grid-area: messages 1;
@@ -582,6 +552,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
 .users-indication h2{
   -webkit-text-stroke-width: 1;
   -webkit-text-stroke-color: #000;
@@ -720,11 +691,12 @@ body {
   display: none;
 }
 
-.drag-and-drop{
+
 .custum-file-upload .icon svg {
   height: 80px;
   fill: rgba(75, 85, 99, 1);
 }
+
 
 .custum-file-upload .text {
   display: flex;
@@ -812,6 +784,7 @@ body {
   background-repeat: repeat;
   padding: 10px;
   font-size: 16px;
+}
 .categories{
   flex-direction: row;
   justify-content: center;
@@ -833,4 +806,10 @@ body {
 
 .postuser {
     margin-left: 200px;
+}
+
+.posts-container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }

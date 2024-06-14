@@ -38,9 +38,10 @@
   <section class="tweet2"></section>
   <section class="tweet3"></section>
   <section class="tweet4"></section>
-  <div class="posts-container">
-    {{range $key, $value := .}}
-    <div class="post-item">
+  <section class="messages1 debug">
+    <div class="posts-container">
+      {{range $key, $value := .}}
+      <div class="post-item">
         <h2>Post {{ $key }}</h2>
         <p>Pseudo : {{ $value.pseudo }}</p>
         <p>Contenu du post : {{ $value.content_post }}</p>
@@ -49,10 +50,10 @@
 
         {{ end }}
         <a href="/post/{{ $value.id_post }}" class="view-post-button">Voir le post</a>
-    </div>
-    {{end}}
-</div>
-
+      </div>
+      {{end}}
+  </div>
+</section>
   <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
 </body>
 </html>
