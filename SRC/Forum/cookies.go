@@ -35,21 +35,15 @@ func IsUUIDInDB(uuid string) (bool, error) {
 	if db == nil {
 		return false, fmt.Errorf("erreur d'ouverture de la base de données")
 	}
-	fmt.Println("Base de données ouverte avec succès")
 	defer db.Close()
 
 	rows, err := db.Query("SELECT UUID FROM Utilisateurs")
 	if err != nil {
-		log.Printf("Erreur lors de l'exécution de la requête SQL : %s", err)
 		return false, err
 	}
-	fmt.Println("Requête SQL exécutée avec succès")
 	defer rows.Close()
 
-	fmt.Println("UUID du cookie : ", uuid)
-
 	var dbUUID sql.NullString
-	var uuids []string
 	for rows.Next() {
 		err = rows.Scan(&dbUUID)
 		if err != nil {
@@ -57,18 +51,11 @@ func IsUUIDInDB(uuid string) (bool, error) {
 			return false, err
 		}
 		if dbUUID.Valid {
-			uuids = append(uuids, dbUUID.String)
 			if dbUUID.String == uuid {
-				fmt.Println("UUID correspondant trouvé dans la base de données : ", dbUUID.String)
-				fmt.Println("Le cookie est égal à l'UUID dans la base de données")
 				return true, nil
-			} else {
-				fmt.Println("Le cookie n'est pas égal à l'UUID dans la base de données")
 			}
 		}
 	}
-
-	fmt.Println("UUIDs dans la base de données : ", uuids)
 
 	return false, nil
 }
@@ -83,4 +70,3 @@ func HandleRequest(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 }
-

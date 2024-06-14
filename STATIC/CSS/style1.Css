@@ -2,7 +2,53 @@ body {
   background-image: url(/STATIC/images/image-3.png);
   margin:0;
 }
+.page-acceuil{
+  display: grid;
+  grid-template-areas:
+    "head head . . ."
+    "nav  tweet1  tweet2 tweet3 tweet4"
+    "nav  messages1 messages2 . ."
+    "nav  messages3 messages4 . .";
+  grid-template-rows: 115px 170px 1fr 1fr ;
+  grid-template-columns: 120px 1fr 1fr 1fr 1fr ;
+}
+.messages1{
+  grid-area: messages1;
+  background-color: #45a049;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  grid-column: 2/span 2;
 
+}
+.messages2{
+  grid-area: messages2;
+  background-color:#FA25CB;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  grid-column: 4/span 2;
+}
+.messages3{
+  grid-area: messages4;
+  background-color: #FA25CB;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  grid-column: 2/span 2;
+}
+.messages4{
+  grid-area: messages3;
+  background-color:#45a049;
+  height: 80%;
+  width: 90%;
+  margin-top: 5%;
+  margin-left: 5%;
+  grid-column: 4/span 2;
+}
 
 .tweet1{
   grid-area: tweet1;
@@ -80,6 +126,50 @@ body {
 
 
 
+.rules{
+  grid-area: messages 1;
+  background-color:#FA25CB;
+  height: 80%;
+  width: 90%;
+  margin-left: 8%;
+  grid-column: 1/span 5;
+  grid-row: 3/span 4;
+  border-radius: 20px; 
+}
+.rules h2{
+  font-size: 32px;
+  text-align: center;
+}
+.rules-indication{
+  grid-area: tweet2;
+  background-color: transparent;
+  grid-column: 3/span 2;
+}
+  .rules-indication h2{
+    -webkit-text-stroke-width: 1;
+    -webkit-text-stroke-color: #000;
+    width: 300px;
+    height: 96px;
+    flex-shrink: 0;
+    background-image: linear-gradient(45deg, rgba(236, 253, 24, 0.87), #000000);
+    transform: skewX(-10deg);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    color: transparent;
+    font-family: Inter;
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  } 
+
+
+
 .menu-box {
   grid-area: nav;
     width: 92px;
@@ -89,6 +179,7 @@ body {
     flex-shrink: 0;
     }
   
+  /* Retirer les pastilles avant les items des listes */
   ul {
     list-style: none;
   }
@@ -313,7 +404,12 @@ body {
 .clique{
   color: rgba(236, 253, 24, 0.87);
   text-decoration: underline;
+.clique{
+  color: rgba(236, 253, 24, 0.87);
+  text-decoration: underline;
 
+}
+/* Style the registration form container */
 }
 /* Style the registration form container */
 .button-inscription {
@@ -330,6 +426,7 @@ body {
   justify-content: center;
 }
 
+/* Style the registration form inputs */
 .button-inscription input[type="text"],
 .button-inscription input[type="email"] {
   width: 100%;
@@ -348,6 +445,7 @@ body {
   box-shadow: 0px 0px 3px rgba(0,0,0,0.1);
 }
 
+/* Style the registration form submit button */
 .button-inscription button {
   width: 100%;
   padding: 10px;
@@ -484,8 +582,145 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+.users-indication h2{
+  -webkit-text-stroke-width: 1;
+  -webkit-text-stroke-color: #000;
+  height: 96px;
+  flex-shrink: 0;
+  background-image: linear-gradient(45deg, rgba(236, 253, 24, 0.87), #000000);
+  transform: skewX(-10deg);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  color: transparent;
+  font-family: Inter;
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  text-transform: uppercase;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+} 
+.users-indication{
+  grid-area: tweet2;
+  background-color: transparent;
+  grid-column: 1 / span 5;
+  grid-row: 2 / span 4;
 }
 
+.users {
+  font-size: 32px;
+  text-align: center;
+}
+.users{
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  grid-area: messages 1;
+  background-color:#FA25CB;
+  height: 70%;
+  width: 55%;
+  margin-left: 25%;
+  grid-column: 1/span 5;
+  grid-row: 3/span 4;
+  border-radius: 20px; 
+}
+.profile-picture {
+  
+  width: 150px; /* taille du rond */
+  height: 150px;
+  border-radius: 50%; /* pour faire un cercle */
+  overflow: hidden; /* pour cacher les bords de l'image */
+  border: 2px solid #ccc; /* bordure grise */
+}
+
+.profile-picture img {
+  width: 100%; /* pour que l'image occupe tout l'espace */
+  height: 100%;
+  object-fit: cover; /* pour que l'image soit redimensionnée pour occuper tout l'espace */
+  border-radius: 50%; /* pour que l'image soit également un cercle */
+}
+
+.users h1{
+  margin-top: 20px;
+  font-size: 32px;
+  text-align: center;
+}
+
+.bottone1 {
+  padding-left: 33px;
+  padding-right: 33px;
+  padding-bottom: 16px;
+  padding-top: 16px;
+  border-radius: 9px; background-image: linear-gradient(45deg, rgba(236, 253, 24, 0.87), #000000);
+  border: none;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.4s;
+ }
+ 
+ .bottone1:hover {
+  box-shadow: 7px 5px 56px -14px #C3D900;
+ }
+ 
+ .bottone1:active {
+  transform: scale(0.97);
+  box-shadow: 7px 5px 56px -10px #C3D900;
+ }
+
+ #logojaune{color: #C3D900;
+ }
+
+ .custum-file-upload {
+  bottom: 10px;
+  height: 200px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #cacaca;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px rgba(0,0,0,0.1);
+}
+
+.custum-file-upload .icon {
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: rgba(75, 85, 99, 1);
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: rgba(75, 85, 99, 1);
+}
+
+.custum-file-upload input {
+  display: none;
+}
+
+.drag-and-drop{
 .custum-file-upload .icon svg {
   height: 80px;
   fill: rgba(75, 85, 99, 1);
@@ -534,6 +769,32 @@ body {
 
 .acceuil-tweet-messages{
   border-radius: 20px;
+  justify-content: center;
+  grid-area: messages1;
+  background-color: #45a049;
+  height: 70%;
+  width: 55%;
+  margin-left: 25%;
+  grid-column: 2/span 2;
+  border-radius: 20px;
+
+}
+
+#content_post{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  width: 800px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("data:text/plain;charset=utf-8;base64,SGVsbG8gd29ybGQh");
+  background-size: 100% 30px;
+  background-repeat: repeat;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.acceuil-tweet-messages{
+  border-radius: 20px;
 }
 
 .categories{
@@ -551,4 +812,26 @@ body {
   background-repeat: repeat;
   padding: 10px;
   font-size: 16px;
+.categories{
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
+
+#content_post_name{
+  left: 20px ;
+  height: 40px;
+  width: 380px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("data:text/plain;charset=utf-8;base64,SGVsbG8gd29ybGQh");
+  background-size: 100% 30px;
+  background-repeat: repeat;
+  padding: 10px;
+  font-size: 16px;
+}
+
+
+
+.postuser {
+    margin-left: 200px;
+}
+
