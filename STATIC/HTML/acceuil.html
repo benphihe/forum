@@ -44,6 +44,7 @@
   </div>
 
   <div class="posts-container">
+    <button onclick="sortPostsByLikes()">Trier par nombre de likes</button>
     {{range $key, $value := .}}
     <div class="post-item">
         <h2>Post {{ $key }}</h2>
@@ -80,9 +81,23 @@
         });
       });
     });
+
+    function sortPostsByLikes() {
+      const postsContainer = document.querySelector('.posts-container');
+      const posts = Array.from(postsContainer.querySelectorAll('.post-item'));
+
+      posts.sort((a, b) => {
+        const likeCountA = parseInt(a.querySelector('.like-count').textContent, 10);
+        const likeCountB = parseInt(b.querySelector('.like-count').textContent, 10);
+        return likeCountB - likeCountA;
+      });
+
+      posts.forEach(post => postsContainer.appendChild(post));
+    }
   </script>
 </body>
 </html>
+
 
 
 
