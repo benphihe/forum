@@ -22,45 +22,59 @@
           <rect x="0" y="4" rx="3" ry="3" width="32" height="3" />
           <rect x="0" y="14" rx="3" ry="3" width="32" height="3" />
           <rect x="0" y="24" rx="3" ry="3" width="32" height="3" />
-        </svg>
-      </div>
-    </label>
-    <input id="menu-cb" type="checkbox" class="menu-cb">
-    <nav class="menu-nav">
-      <ul>
-        <li class="menu-item"><a onclick="window.location.href='inscription'">account <i class="fa-solid fa-user"></i></a></li>
-        <li class="menu-item"><a onclick="window.location.href='addpost'">Post <i class="fa-regular fa-comments"></i></a></li>
-        <li class="menu-item"><a onclick="window.location.href='rules'">Rules <i class="fa-solid fa-scale-unbalanced-flip"></i></a></li>
-      </ul>
-    </nav>
+                  </svg>
+                </div>
+              </label>
+              <input id="menu-cb" type="checkbox" class="menu-cb">
+              <nav class="menu-nav">
+                <ul>
+                  <li class="menu-item"><a onclick="window.location.href='inscription'">account <i class="fa-solid fa-user"></i></a></li>
+                  <li class="menu-item"><a onclick="window.location.href='addpost'">Post <i class="fa-regular fa-comments"></i></a></li>
+                  <li class="menu-item"><a onclick="window.location.href='rules'">Rules <i class="fa-solid fa-scale-unbalanced-flip"></i></a></li>
+                </ul>
+              </nav>
 
-    <body>
-        <div class="content-wrapper">
-        <h1>{{.Post.id_post}}</h1>
-        <p>Utilisateur: {{.Post.pseudo}}</p>
-        <p>Contenu: {{.Post.content_post}}</p>
-        <p>Catégorie: {{.Post.category}}</p>
-    
-        <h2>Commentaires</h2>
-        <form id="commentForm" method="post">
-            <label for="content">Commentaire:</label><br>
-            <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
-            <input type="submit" value="Ajouter Commentaire">
-        </form>
-    
-        <h1>Commentaires</h1>
-        {{range .Comments}}
-        <div>
-            <h2>{{.pseudo}}</h2>
-            <p>{{.content_comment}}</p>
-        </div>
-        {{end}}
-    </div>
-    </body>
+              <div>
+                  <div class="content-wrapper">
+                  <h1>{{.Post.id_post}}</h1>
+                  <p>Utilisateur: {{.Post.pseudo}}</p>
+                  <p>Contenu: {{.Post.content_post}}</p>
+                  <p>Catégorie: {{.Post.category}}</p>j
+              
+                  <h2>Commentaires</h2>
+                      
 
-    <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
-  </body>
-</html>
+                    <h1>Insérer un commentaire</h1>
+                    <form id="commentForm" method="POST" action="/addComment">
+                      <label for="content">Contenu du commentaire:</label><br>
+                      <textarea id="content" name="content" required></textarea><br>
+                      <input type="submit" id="submit" value="Soumettre">
+                    </form>
+              </div>
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script>
+            $(document).ready(function(){
+              $("#commentForm").on("submit", function(event){
+                event.preventDefault();
 
+                $.ajax({
+                  url: '/addComment',
+                  type: 'post',
+                  data: $(this).serialize(),
+                  success: function(){
+                    alert("Commentaire ajouté avec succès !");
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                    console.log("jqXHR: ", jqXHR);
+                    console.log("textStatus: ", textStatus);
+                    console.log("errorThrown: ", errorThrown);
+                    alert("Une erreur s'est produite lors de l'ajout du commentaire. Veuillez consulter la console pour plus de détails.");
+                  }
+                });
+              });
+            });
+            </script>
 
-
+            </body>
+          </html>

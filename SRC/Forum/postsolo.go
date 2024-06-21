@@ -86,3 +86,57 @@ func DisplayPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func CreateComment(postID int, userID int, content string) (int, error) {
+	_, db := Open()
+	if db == nil {
+		return 0, fmt.Errorf("erreur d'ouverture de la base de données")
+	}
+	defer db.Close()
+
+	res, err := db.Exec("INSERT INTO commentaire_post (content, id_user, id_post) VALUES (?, ?, ?)", content, userID, postID)
+	if err != nil {
+		return 0, err
+	}
+
+	id, err := res.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return int(id), nil
+}
+
+func AddComment(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+		return
+	}
+
+	postIDStr := strings.TrimPrefix(r.URL.Path, "/post/")
+	postID, err := strconv.Atoi(postIDStr)
+	if err != nil {
+		http.Error(w, "Invalid post ID", http.StatusBadRequest)
+		return
+	}
+
+	user, err := GetUserInfoFromDB(r)
+	if err != nil {
+		http.Error(w, "Error getting user info", http.StatusInternalServerError)
+		return
+	}
+
+	content := r.FormValue("content")
+	if content == "" {
+		http.Error(w, "Content cannot be empty", http.StatusBadRequest)
+		return
+	}
+
+	_, err = CreateComment(postID, user.ID, content)
+	if err != nil {
+		http.Error(w, "Error creating comment", http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, fmt.Sprintf("/post/%d", postID), http.StatusSeeOther)
+}

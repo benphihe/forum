@@ -396,12 +396,11 @@ body {
     box-shadow: 0px 0px 3px rgba(0,0,0,0.1);
   }
   
-  /* Style the registration form submit button */
   .button-inscription button {
     width: 100%;
     padding: 10px;
     background-color: #4CAF50;
-    color: #fff;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -557,10 +556,10 @@ body {
     color: rgba(75, 85, 99, 1);
   }
   
-  .custum-file-upload input {
+  /* .custum-file-upload input {
     display: none;
   }
-  
+   */
   .drag-and-drop{
     display: flex;
     justify-content: center;
@@ -629,3 +628,12 @@ form#commentForm {
     flex-direction: column;
     gap: 10px;
 }
+
+
+
+
+
+
+
+
+
