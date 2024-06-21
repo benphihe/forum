@@ -13,25 +13,31 @@ import (
 func GetUserIDFromSession(r *http.Request) string {
 	cookie, err := r.Cookie("session_token")
 	if err != nil {
+		fmt.Println("No session cookie found:", err)
 		return ""
 	}
 
-	sessionToken := cookie.Value
+	uuid := cookie.Value
+	fmt.Println("UUID from cookie:", uuid)
 
 	_, db := Open()
 	if db == nil {
+		fmt.Println("Failed to open database")
 		return ""
 	}
 	defer db.Close()
 
 	var userID string
-	err = db.QueryRow("SELECT user_id FROM sessions WHERE session_token = ?", sessionToken).Scan(&userID)
+	err = db.QueryRow("SELECT id_user FROM Utilisateurs WHERE UUID = ?", uuid).Scan(&userID)
 	if err != nil {
+		fmt.Println("Failed to retrieve user ID from UUID:", err)
 		return ""
 	}
+	fmt.Println("Retrieved user ID:", userID)
 
 	return userID
 }
+
 
 func DisplayPostsFrombdd(w http.ResponseWriter, r *http.Request) {
 	id_category := r.URL.Query().Get("category")
@@ -113,5 +119,7 @@ func GetPosts(userID string, id_category string) ([]map[string]interface{}, erro
 
 	return posts, nil
 }
+
+
 
 

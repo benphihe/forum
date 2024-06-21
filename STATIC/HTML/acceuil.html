@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+  <meta charset="UTF-8">
+  <title>Accueil - YBLOG</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
-  <title>acceuil</title>
-  <link rel="stylesheet" href="/STATIC/CSS/style1.Css">
+  <link rel="stylesheet" href="/STATIC/CSS/style1.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-<body class="page-acceuil" >
+<body class="page-acceuil">
   <div class="header">
     <a onclick="window.location.href='/'">YBLOG</a>
     <form class="search-bar" action="/search" method="get">
@@ -28,34 +29,76 @@
     <input id="menu-cb" type="checkbox" class="menu-cb">
     <nav class="menu-nav">
       <ul>
-        <li class="menu-item"><a onclick="window.location.href='user'">account <i class="fa-solid fa-user"></i></a></li>
+        <li class="menu-item"><a onclick="window.location.href='user'">Account <i class="fa-solid fa-user"></i></a></li>
         <li class="menu-item"><a onclick="window.location.href='addpost'">Post <i class="fa-regular fa-comments"></i></a></li>
         <li class="menu-item"><a onclick="window.location.href='rules'">Rules <i class="fa-solid fa-scale-unbalanced-flip"></i></a></li>
       </ul>
     </nav>
-  </div class="acceuil-tweet-messages">
-  <section class="tweet1"></section>
-  <section class="tweet2"></section>
-  <section class="tweet3"></section>
-  <section class="tweet4"></section>
+  </div>
+
+  <div class="acceuil-tweet-messages">
+    <section class="tweet1"></section>
+    <section class="tweet2"></section>
+    <section class="tweet3"></section>
+    <section class="tweet4"></section>
+  </div>
+
   <div class="posts-container">
+    <button onclick="sortPostsByLikes()">Trier par nombre de likes</button>
     {{range $key, $value := .}}
     <div class="post-item">
         <h2>Post {{ $key }}</h2>
         <p>Pseudo : {{ $value.pseudo }}</p>
         <p>Contenu du post : {{ $value.content_post }}</p>
         <p>Catégorie : {{ $value.category_name }}</p>
-        {{ if $value.is_owner }}
-
-        {{ end }}
+        <button class="like-button" data-post-id="{{ $value.id_post }}">Like</button>
+        <span class="like-count">{{ $value.like_count }}</span>
         <a href="/post/{{ $value.id_post }}" class="view-post-button">Voir le post</a>
     </div>
     {{end}}
-</div>
+  </div>
 
-  <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const likeButtons = document.querySelectorAll('.like-button');
+
+      likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const postID = this.getAttribute('data-post-id');
+          fetch('/like', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `postID=${postID}`
+          })
+          .then(response => response.text())
+          .then(data => {
+            const likeCountElement = this.nextElementSibling;
+            likeCountElement.textContent = data;
+          })
+          .catch(error => console.error('Error:', error));
+        });
+      });
+    });
+
+    function sortPostsByLikes() {
+      const postsContainer = document.querySelector('.posts-container');
+      const posts = Array.from(postsContainer.querySelectorAll('.post-item'));
+
+      posts.sort((a, b) => {
+        const likeCountA = parseInt(a.querySelector('.like-count').textContent, 10);
+        const likeCountB = parseInt(b.querySelector('.like-count').textContent, 10);
+        return likeCountB - likeCountA;
+      });
+
+      posts.forEach(post => postsContainer.appendChild(post));
+    }
+  </script>
 </body>
 </html>
+
+
 
 
 
