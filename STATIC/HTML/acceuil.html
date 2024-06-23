@@ -44,7 +44,7 @@
   </div>
 
   <div class="posts-container">
-    <button onclick="sortPostsByLikes()">Trier par nombre de likes</button>
+    <button class="like" onclick="sortPostsByLikes()">Trier par nombre de likes</button>
     {{range $key, $value := .}}
     <div class="post-item">
         <h2>Post {{ $key }}</h2>
