@@ -39,18 +39,20 @@
       </nav>
     </div>
       <body>
-        <h1>Ajouter un Post</h1>
-        <form id="postForm" method="post" action="/addpost">
-            <label for="content_post">Contenu du Post:</label><br>
-            <textarea id="content_post" name="content_post" rows="4" cols="50" required></textarea><br>
-            <label for="category">Catégorie:</label><br>
-            <select id="category" name="category" required>
-                <option value="1">#Mylife</option>
-                <option value="2">#Cinema</option>
-                <option value="3">#Sport</option>
-            </select><br>
-            <input type="submit" value="Ajouter Post">
-        </form>
+        <div class="add-post">
+         <h1>Ajouter un Post</h1>
+          <form id="postForm" method="post" action="/addpost">
+              <label for="content_post">Contenu du Post:</label><br>
+              <textarea id="content_post" name="content_post" rows="4" cols="50" required></textarea><br>
+              <label for="category">Catégorie:</label><br>
+              <select id="category" name="category" required>
+                  <option value="1">#Mylife</option>
+                  <option value="2">#Cinema</option>
+                  <option value="3">#Sport</option>
+              </select><br>
+              <input type="submit" value="Ajouter Post">
+          </form>
+        </div>
     </body>
     <script rel="stylesheet" href="/STATIC/script.js"></script>
 </body>
