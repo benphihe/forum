@@ -35,18 +35,14 @@
       </ul>
     </nav>
   </div>
-
-  <div class="acceuil-tweet-messages">
-    <section class="tweet1"></section>
-    <section class="tweet2"></section>
-    <section class="tweet3"></section>
-    <section class="tweet4"></section>
-  </div>
-
-  <div class="posts-container">
-    <button onclick="sortPostsByLikes()">Trier par nombre de likes</button>
-    {{range $key, $value := .}}
-    <div class="post-item">
+  <section class="tweet1"></section>
+  <section class="tweet2"></section>
+  <section class="tweet3"></section>
+  <section class="tweet4"></section>
+  <section class="messages1 debug">
+    <div class="posts-container">
+      {{range $key, $value := .}}
+      <div class="post-item">
         <h2>Post {{ $key }}</h2>
         <p>Pseudo : {{ $value.pseudo }}</p>
         <p>Contenu du post : {{ $value.content_post }}</p>
@@ -95,6 +91,11 @@
       posts.forEach(post => postsContainer.appendChild(post));
     }
   </script>
+      </div>
+      {{end}}
+  </div>
+</section>
+  <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
 </body>
 </html>
 
