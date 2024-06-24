@@ -22,17 +22,17 @@
           <rect x="0" y="4" rx="3" ry="3" width="32" height="3" />
           <rect x="0" y="14" rx="3" ry="3" width="32" height="3" />
           <rect x="0" y="24" rx="3" ry="3" width="32" height="3" />
-        </svg>
-      </div>
-    </label>
-    <input id="menu-cb" type="checkbox" class="menu-cb">
-    <nav class="menu-nav">
-      <ul>
-        <li class="menu-item"><a onclick="window.location.href='inscription'">account <i class="fa-solid fa-user"></i></a></li>
-        <li class="menu-item"><a onclick="window.location.href='addpost'">Post <i class="fa-regular fa-comments"></i></a></li>
-        <li class="menu-item"><a onclick="window.location.href='rules'">Rules <i class="fa-solid fa-scale-unbalanced-flip"></i></a></li>
-      </ul>
-    </nav>
+                  </svg>
+                </div>
+              </label>
+              <input id="menu-cb" type="checkbox" class="menu-cb">
+              <nav class="menu-nav">
+                <ul>
+                  <li class="menu-item"><a onclick="window.location.href='inscription'">account <i class="fa-solid fa-user"></i></a></li>
+                  <li class="menu-item"><a onclick="window.location.href='addpost'">Post <i class="fa-regular fa-comments"></i></a></li>
+                  <li class="menu-item"><a onclick="window.location.href='rules'">Rules <i class="fa-solid fa-scale-unbalanced-flip"></i></a></li>
+                </ul>
+              </nav>
 
     <body>
         <div class="content-wrapper">
@@ -44,6 +44,7 @@
         <form id="commentForm" method="post">
             <label for="content">Commentaire:</label><br>
             <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
+            <input type="hidden" name="userID" value="1">
             <input type="submit" value="Ajouter Commentaire">
         </form>
     
@@ -56,10 +57,42 @@
         {{end}}
     </div>
     </body>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const commentForms = document.querySelectorAll('#commentForm');
+          
+          commentForms.forEach(form => {
+              form.addEventListener('submit', function(event) {
+                  event.preventDefault();
+                  const formData = new FormData(this);
+                  fetch('/addcomment', {
+                      method: 'POST',
+                      body: formData
+                  })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Erreur lors de l\'ajout du commentaire');
+                      }
+                      return response.text();
+                  })
+                  .then(data => {
+                      console.log('Commentaire ajouté avec succès:', data);
+                      const commentSection = document.querySelector(`#comments-${formData.get('post_id')}`);
+                      commentSection.innerHTML = data;
+                      this.reset();
+                  })
+                  .catch(error => {
+                      console.error('Erreur:', error);
+                  });
+              });
+          });
+      });
+    </script>
 
-    <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
+    <script src="/STATIC/acceuil.js"></script>
   </body>
 </html>
+
 
 
 

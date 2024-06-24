@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+  <title>acceuil</title>
+  <link rel="stylesheet" href="/STATIC/CSS/style1.Css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="page-acceuil" >
+  <div class="header">
+    <a onclick="window.location.href='acceuil'">YBLOG</a>
+    <form class="search-bar" action="/search" method="get">
+      <input type="text" name="q" placeholder="Rechercher sur YBLOG">
+    </form>
+  </div>
+  <div class="menu-box"> 
+    <label for="menu-cb" class="menu-label">
+      <div class="menu-button">
+        <svg viewBox="0 0 32 32" fill="#666">
+          <rect x="0" y="4" rx="3" ry="3" width="32" height="3" />
+          <rect x="0" y="14" rx="3" ry="3" width="32" height="3" />
+          <rect x="0" y="24" rx="3" ry="3" width="32" height="3" />
+        </svg>
+      </div>
+    </label>
+    <input id="menu-cb" type="checkbox" class="menu-cb">
+    <nav class="menu-nav">
+      <ul>
+        <li class="menu-item"><a onclick="window.location.href='inscription'">account <i class="fa-solid fa-user"></i></a></li>
+        <li class="menu-item"><a onclick="window.location.href='addpost'">Post <i class="fa-regular fa-comments"></i></a></li>
+        <li class="menu-item"><a onclick="window.location.href='#page2'">Rules <i class="fa-solid fa-scale-unbalanced-flip"></i></a></li>
+      </ul>
+    </nav>
+  </div>
+  <section class="tweet1"></section>
+  <section class="tweet2"></section>
+  <section class="tweet3"></section>
+  <section class="tweet4"></section>
+  
+  <div class="posts-container">
+    <div class="back-to-home">
+      <a href="/">Retour à l'accueil</a>
+    </div>
+    {{range $key, $value := .}}
+      <div class="post-item">
+        <h2>Post {{ $key }}</h2>
+        <p>Pseudo : {{ $value.pseudo }}</p>
+        <p>Contenu du post : {{ $value.content_post }}</p>
+        <p>Catégorie : {{ $value.category_name }}</p>
+        <a href="/post/{{ $value.id_post }}" class="view-post-button">Voir le post</a>
+      </div>
+    {{end}}
+  </div>
+  
+  <script rel="stylesheet" href="/STATIC/acceuil.js"></script>
+</body>
+</html>
+

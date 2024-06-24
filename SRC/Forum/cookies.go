@@ -61,12 +61,13 @@ func IsUUIDInDB(uuid string) (bool, error) {
 }
 
 func HandleRequest(w http.ResponseWriter, r *http.Request) {
-	_, err := GetUUIDFromCookie(r)
-	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
-	}
-	fmt.Println("UUID récupéré du cookie avec succès")
+    uuid, err := GetUUIDFromCookie(r)
+    if err != nil {
+        http.Redirect(w, r, "/connexion", http.StatusSeeOther)
+        return
+    }
+    fmt.Println("UUID récupéré du cookie avec succès : ", uuid)
 
-	w.WriteHeader(http.StatusOK)
+    w.WriteHeader(http.StatusOK)
 }
+
