@@ -97,14 +97,7 @@ body {
   box-shadow: 7px 5px 56px -10px #C3D900;
  }
 
-.tweet1{
-  grid-area: tweet1;
-  background-color: #45a049;
-  height: 80%;
-  width: 90%;
-  margin-top: 5%;
-  margin-left: 5%;
-}
+
 .tweet2{
   grid-area: tweet2;
   background-color: transparent;
