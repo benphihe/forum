@@ -94,6 +94,7 @@ body {
   
   
   .menu-box {
+    display:grid;
     grid-area: nav;
       width: 92px;
       height: 925px;
@@ -102,7 +103,6 @@ body {
       flex-shrink: 0;
       }
     
-    /* Retirer les pastilles avant les items des listes */
     ul {
       list-style: none;
     }
@@ -144,7 +144,7 @@ body {
       
     grid-area: nav;
       position: relative;
-      height: 100%;
+      height: 300%;
       width: 1000%;
       max-width: 400px;
       padding-top: 110px;
@@ -413,8 +413,12 @@ body {
   .users-indication{
     grid-area: tweet2;
     background-color: transparent;
-    grid-column: 1 / span 5;
+    grid-column: 3 / span 5;
     grid-row: 2 / span 4;
+    width: 200%;
+    margin-left: 70px;
+    background-color:#FA25CB;
+    border-radius: 20px;
   }
   
   .users {
@@ -437,18 +441,18 @@ body {
   }
   .profile-picture {
     
-    width: 150px; /* taille du rond */
+    width: 150px;
     height: 150px;
-    border-radius: 50%; /* pour faire un cercle */
-    overflow: hidden; /* pour cacher les bords de l'image */
-    border: 2px solid #ccc; /* bordure grise */
+    border-radius: 50%;
+    overflow: hidden; 
+    border: 2px solid #ccc;
   }
   
   .profile-picture img {
-    width: 100%; /* pour que l'image occupe tout l'espace */
+    width: 100%;
     height: 100%;
-    object-fit: cover; /* pour que l'image soit redimensionnée pour occuper tout l'espace */
-    border-radius: 50%; /* pour que l'image soit également un cercle */
+    object-fit: cover;
+    border-radius: 50%;
   }
   
   .users h1{
