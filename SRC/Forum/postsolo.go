@@ -176,12 +176,15 @@ func AddComment(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Commentaire ajouté avec succès"))
 }
 
-func AddCommentToDB(postID int, userID int, pseudo string, content string, db *sql.DB) (bool, error) {
+func AddCommentToDB(postID int, userID int, content string, db *sql.DB) (bool, error) {
+	if db == nil {
+		return false, fmt.Errorf("la connexion à la base de données n'est pas initialisée")
+	}
 	if content == "" {
 		return false, fmt.Errorf("le contenu du commentaire ne peut pas être vide")
 	}
 
-	_, err := db.Exec("INSERT INTO commentaire_post (id_post, id_user, pseudo, content) VALUES (?, ?, ?, ?)", postID, userID, pseudo, content)
+	_, err := db.Exec("INSERT INTO commentaire_post (id_post, id_user, content) VALUES (?, ?, ?)", postID, userID, content)
 	if err != nil {
 		return false, fmt.Errorf("erreur lors de l'ajout du commentaire : %s", err)
 	}
