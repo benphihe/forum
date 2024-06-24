@@ -1,5 +1,5 @@
 body {
-    background-image: url(/images/image-3.png);
+    background-image: url(/STATIC/images/image-3.png);
     margin:0;
   }
   .page-acceuil{
@@ -48,39 +48,6 @@ body {
     margin-top: 5%;
     margin-left: 5%;
     grid-column: 4/span 2;
-  }
-  
-  .tweet1{
-    grid-area: tweet1;
-    background-color: #45a049;
-    height: 80%;
-    width: 90%;
-    margin-top: 5%;
-    margin-left: 5%;
-  }
-  .tweet2{
-    grid-area: tweet2;
-    background-color:#FA25CB;
-    height: 80%;
-    width: 90%;
-    margin-top: 5%;
-    margin-left: 5%;
-  }
-  .tweet3{
-    grid-area: tweet3;
-    background-color: #45a049;
-    height: 80%;
-    width: 90%;
-    margin-top: 5%;
-    margin-left: 5%;
-  }
-  .tweet4{
-    grid-area: tweet4;
-    background-color:#FA25CB;
-    height: 80%;
-    width: 90%;
-    margin-top: 5%;
-    margin-left: 5%;
   }
   .rules{
     grid-area: messages 1;
@@ -615,13 +582,10 @@ body {
 }
 
 .content-wrapper {
+    grid-area: tweet1;
+    grid-column: 2/span 2;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: -1000px;
-    margin-left: 750px;
-    box-sizing: border-box;
-    text-align: center;
 }
 
 form#commentForm {
