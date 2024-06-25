@@ -39,20 +39,21 @@
   <section class="tweet2"></section>
   <section class="tweet3"></section>
   <section class="tweet4"></section>
-  <section class="messages1 debug">
-    <div class="posts-container">
-      {{range $key, $value := .}}
-      <div class="post-item">
-        <h2>Post {{ $key }}</h2>
-        <p>Pseudo : {{ $value.pseudo }}</p>
-        <p>Contenu du post : {{ $value.content_post }}</p>
-        <p>Catégorie : {{ $value.category_name }}</p>
-        <button class="like-button" data-post-id="{{ $value.id_post }}">Like</button>
-        <span class="like-count">{{ $value.like_count }}</span>
-        <a href="/post/{{ $value.id_post }}" class="view-post-button">Voir le post</a>
+<section class="section-posts">
+        <div class="container-posts">
+            {{range $key, $value := .}}
+            <div class="item-post">
+                <h2>Post {{ $key }}</h2>
+                <p>Pseudo : {{ $value.pseudo }}</p>
+                <p>Message : {{ $value.content_post }}</p>
+                <p>Catégorie : {{ $value.category_name }}</p>
+                <button class="like-button" data-post-id="{{ $value.id_post }}"><i class="fa-solid fa-heart"></i></button>
+                <span class="like-count">{{ $value.like_count }}</span>
+                <a href="/post/{{ $value.id_post }}" class="btn-view">Voir le post</a>
             </div>
             {{end}}
-          </div>
+        </div>
+</section>
 
           <script>
             document.addEventListener('DOMContentLoaded', function() {

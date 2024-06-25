@@ -14,7 +14,7 @@ body {
 }
 .messages1{
   grid-area: messages1;
-  background-color: #45a049;
+  background-color: red;
   height: 80%;
   width: 90%;
   margin-top: 5%;
@@ -33,7 +33,7 @@ body {
   border-radius: 20px;
 }
 .messages3{
-  grid-area: messages4;
+  grid-area: messages3;
   background-color: #FA25CB;
   height: 80%;
   width: 90%;
@@ -43,7 +43,7 @@ body {
   border-radius: 20px;
 }
 .messages4{
-  grid-area: messages3;
+  grid-area: messages4;
   background-color:#45a049;
   height: 80%;
   width: 90%;
@@ -845,4 +845,43 @@ body {
     grid-row: 2 / span 4;
     background-color:#FA25CB;
     border-radius: 20px;
+}
+
+
+.section-posts {
+  padding: 20px;
+}
+
+.container-posts {
+  margin-top: -250px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 50px;
+  padding: 150px;
+  width: 80%;
+}
+
+.item-post {
+  background-color: #f9f9f9;
+  padding: 50px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 10px; 
+}
+
+.btn-like, .btn-view {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn-like:hover, .btn-view:hover {
+  background-color: #0056b3;
+}
+
+.count-like {
+  margin-left: 10px;
 }

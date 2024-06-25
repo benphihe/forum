@@ -35,7 +35,6 @@ func SearchPosts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Trier les posts par nombre de likes en ordre décroissant
 	sort.Slice(posts, func(i, j int) bool {
 		return posts[i]["like_count"].(int) > posts[j]["like_count"].(int)
 	})
